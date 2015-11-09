@@ -8,7 +8,7 @@
   <meta name="description" content="前言对比目前用的算是顺手的网络框架Volley，Okhttp，Retrofit,通常优先选择Retrofit，若Retrofit无法满足开发，则选择Okhttp。前两种已经完全可以实现大部分的网络开发需要，而且开发中使用极其简约大方。我们详细讨论Retrofit的优点和缺点：Retrofit由Square组织编写的网络框架，使用技术动态代理和反射，使用OO设计简约网络代码。目前最新版本是2.0版本">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Retrofit基本使用和个人封装">
-<meta property="og:url" content="http://blog.36dr.net/2015/10/31/20151031/index.html">
+<meta property="og:url" content="http://www.baidu.com/2015/10/31/20151031/index.html">
 <meta property="og:site_name" content="Dr's Blog">
 <meta property="og:description" content="前言对比目前用的算是顺手的网络框架Volley，Okhttp，Retrofit,通常优先选择Retrofit，若Retrofit无法满足开发，则选择Okhttp。前两种已经完全可以实现大部分的网络开发需要，而且开发中使用极其简约大方。我们详细讨论Retrofit的优点和缺点：Retrofit由Square组织编写的网络框架，使用技术动态代理和反射，使用OO设计简约网络代码。目前最新版本是2.0版本">
 <meta property="og:updated_time" content="2015-11-02T12:10:02.000Z">
@@ -253,7 +253,7 @@
 <p>数据返回处理：<br></p>
 <ul>
 <li>若是同步调用则直接返回数据，返回数据与请求属于同一线程，则不能直接更新UI因为不在UI主线程中。</li>
-<li>若非同步调用通过RequestInterceptorTape拦截，然后判断是Observe(RXJava)观察模式，则采用RxJava方式回调,默认不特别处理是Callback。若不了解RxJava请阅读<a href="http://www.baidu.com" target="_blank" rel="external">RxJava原理与使用</a></li>
+<li>若非同步调用通过RequestInterceptorTape拦截，然后判断是Observe(RXJava)观察模式，则采用RxJava方式回调,默认不特别处理是Callback。若不了解RxJava请阅读<a href="http://www.baidu.com">RxJava原理与使用</a></li>
 <li>若是Callback则交由回调线程处理，采用UI主线程返回数据。<br>如：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 同步处理*/</span></span><br><span class="line"><span class="annotation">@GET</span>(<span class="string">"/users/list"</span>)</span><br><span class="line"><span class="function">Response <span class="title">userList</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">/*异步Callback回调*/</span></span><br><span class="line"><span class="annotation">@GET</span>(<span class="string">"/users/list"</span>)</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">userList</span><span class="params">(Callback&lt;Response&gt; cb)</span></span>;</span><br><span class="line"><span class="comment">/*异步RxJava回调*/</span></span><br><span class="line"><span class="annotation">@GET</span>(<span class="string">"/users/list"</span>)</span><br><span class="line"><span class="function">Observable&lt;Response&gt; <span class="title">userList</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -327,7 +327,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="20151031" data-title="Retrofit基本使用和个人封装" data-url="http://blog.36dr.net/2015/10/31/20151031/"></div>
+	<div class="ds-thread" data-thread-key="20151031" data-title="Retrofit基本使用和个人封装" data-url="http://www.baidu.com/2015/10/31/20151031/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
