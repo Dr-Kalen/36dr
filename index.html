@@ -99,7 +99,7 @@
 							
 								<a class="github" target="_blank" href="https://github.com/Dr-Kalen" title="github">github</a>
 					        
-								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+								<a class="csdn" target="_blank" href="/#" title="csdn">csdn</a>
 					        
 								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
 					        
@@ -124,6 +124,8 @@
 			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://hexo.io">Hexo</a>
 			        
 			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.csdn.net">CSDN</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://android.jobbole.com">Jobbole</a>
 			        
 			        </div>
 				</section>
@@ -171,7 +173,7 @@
 					
 						<a class="github" target="_blank" href="https://github.com/Dr-Kalen" title="github">github</a>
 			        
-						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+						<a class="csdn" target="_blank" href="/#" title="csdn">csdn</a>
 			        
 						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
 			        
@@ -183,6 +185,57 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="android-Tools" class="article article-type-android" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/09/Tools/" class="article-date">
+  	<time datetime="2015-11-09T15:23:30.000Z" itemprop="datePublished">2015-11-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/09/Tools/">Tools</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Android Tools <a href="http://www.androiddevtools.cn" target="_blank" rel="external">http://www.androiddevtools.cn</a><br><br>Android Source <a href="http://androidxref.com" target="_blank" rel="external">http://androidxref.com</a><br></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-20151104" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -261,13 +314,69 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Hexo简介">Hexo简介</h2><p>Hexo 是一个简单地、轻量地、基于Node的一个静态博客框架。通过Hexo我们可以快速创建自己的博客，仅需要几条命令就可以完成。<br><br>Hexo可以部署在自己的服务器上面，也可以部署github上面。对于个人用户来说，部署在github上好处颇多，不仅可以省去服务器的成本，还可以减少各种系统运维的麻烦事(系统管理、备份、网络)。</p>
-<h2 id="Hexo_安装步骤">Hexo 安装步骤</h2><p>Hexo的官方网站：<a href="http://hexo.io/" target="_blank" rel="external">http://hexo.io/</a> ，也是基于Github构建的网站。</p>
-<p>Hexo整个部署过程：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#32456;&#20110;&#37197;&#32622;&#23436;&#25104;</span><br></pre></td></tr></table></figure></p>
+        <h2 id="Hexo简介">Hexo简介</h2><p>Hexo 是一个简单地、轻量地、基于Node的一个静态博客框架。通过Hexo我们可以快速创建自己的博客，仅需要几条命令就可以完成。<br><br>Hexo可以部署在自己的服务器上面，也可以部署github上面。对于个人用户来说，部署在github上好处颇多，不仅可以省去服务器的成本，还可以减少各种系统运维的麻烦事(系统管理、备份、网络)。<br>Hexo的官方网站：<a href="http://hexo.io/" target="_blank" rel="external">http://hexo.io/</a> ，也是基于Github构建的网站。</p>
+<h2 id="Hexo_安装步骤">Hexo 安装步骤</h2><p>Hexo 安装<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># npm install -g hexo</span><br></pre></td></tr></table></figure></p>
+<p>查看hexo的版本,验证安装成功<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># hexo version&#10;hexo: 2.5.5&#10;os: Windows_NT 6.1.7601 win32 x64&#10;http_parser: 1.0&#10;node: 0.10.5&#10;v8: 3.14.5.8&#10;ares: 1.9.0-DEV&#10;uv: 0.10.5&#10;zlib: 1.2.3&#10;modules: 11&#10;openssl: 1.0.1e</span><br></pre></td></tr></table></figure></p>
+<p>安装好后，我们就可以使用Hexo创建项目了。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># hexo init nodejs-hexo&#10;[info] Creating file: source/_posts/hello-world.md&#10;[info] Creating file: package.json&#10;[info] Creating file: .gitignore&#10;[info] Copying file: _config.yml&#10;[info] Copying file: scaffolds/draft.md&#10;[info] Copying file: scaffolds/page.md&#10;[info] Copying file: scaffolds/photo.md&#10;[info] Copying file: scaffolds/post.md&#10;[info] Creating folder: source/_drafts&#10;[info] Creating folder: scripts&#10;[info] Copying theme data...&#10;[info] Initialization has been done. Start blogging with Hexo!</span><br></pre></td></tr></table></figure></p>
+<p>我们看到当前在目录下，出现了一个文件夹，包括初始化的文件。</p>
+<p>进入目录，并启动Hexo服务器。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># &#36827;&#20837;&#30446;&#24405;&#10;# cd nodejs-hexo&#10;&#10;# &#21551;&#21160;hexo&#26381;&#21153;&#22120;&#10;# hexo server&#10;[info] Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.</span><br></pre></td></tr></table></figure></p>
+<p>这时端口4000被打开了，我们能过浏览器打开地址，<a href="http://localhost:4000/" target="_blank" rel="external">http://localhost:4000/</a> 。</p>
+<h2 id="Hexo_使用">Hexo 使用</h2><p>1 Hexo 目录结构</p>
 <ul>
-<li><a href="http://blog.fens.me/hexo-blog-github/" target="_blank" rel="external">http://blog.fens.me/hexo-blog-github/</a></li>
-<li><a href="http://www.cnblogs.com/zhcncn/p/4097881.html" target="_blank" rel="external">http://www.cnblogs.com/zhcncn/p/4097881.html</a></li>
+<li>scaffolds 脚手架，也就是一个工具模板</li>
+<li>scripts 写文件的js，扩展hexo的功能</li>
+<li>source 存放博客正文内容</li>
+<li>source_drafts 草稿箱</li>
+<li>source_posts 文件箱</li>
+<li>themes 存放皮肤的目录</li>
+<li>themes_landscape 默认的皮肤</li>
+<li>config.yml 全局的配置文件</li>
+<li>db.json 静态常量</li>
 </ul>
+<p>在这里，我们每次用到的就是_posts目录里的文件，而_config.yml文件和themes目录是第一次配置好就行了。<br><br><br>_posts目录：Hexo是一个静态博客框架，因此没有数据库。文章内容都是以文本文件方式进行存储的，直接存储在_posts的目录。Hexo天生集成了markdown，我们可以直接使用markdown语法格式写博客，例如:hello-world.md。新增加一篇文章，就在_posts目录，新建一个xxx.md的文件。<br><br><br>themes目录：是存放皮肤的，包括一套Javascript+CSS样式和基于EJS的模板设置。通过在themes目录下，新建一个子目录，就可以创建一套新的皮肤，当然我们也可以直接在landscape上面修改。<br><br></p>
+<p>2 全局配置<br>_config.yml是全局的配置文件：很多的网站配置都在这个文件中定义。</p>
+<ul>
+<li>站点信息: 定义标题，作者，语言</li>
+<li>URL: URL访问路径</li>
+<li>文件目录: 正文的存储目录</li>
+<li>写博客配置：文章标题，文章类型，外部链接等</li>
+<li>目录和标签：默认分类，分类图，标签图</li>
+<li>归档设置：归档的类型</li>
+<li>服务器设置：IP，访问端口，日志输出</li>
+<li>时间和日期格式： 时间显示格式，日期显示格式</li>
+<li>分页设置：每页显示数量</li>
+<li>评论：外挂的Disqus评论系统</li>
+<li>插件和皮肤：换皮肤，安装插件</li>
+<li>Markdown语言：markdown的标准</li>
+<li>CSS的stylus格式：是否允许压缩</li>
+<li>部署配置：github发布<br>查看文件：_config.yml</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># Hexo Configuration&#10;## Docs: http://hexo.io/docs/configuration.html&#10;## Source: https://github.com/tommy351/hexo/&#10;&#10;# &#31449;&#28857;&#20449;&#24687;&#10;title: Hexo&#21338;&#23458;&#10;subtitle: &#26032;&#30340;&#24320;&#22987;&#10;description: blog.fens.me&#10;author: bsspirit&#10;email: bsspirit@gmail.com&#10;language: zh-CN&#10;&#10;# URL&#10;## If your site is put in a subdirectory, set url as &#39;http://yoursite.com/child&#39; and root as &#39;/child/&#39;&#10;url: http://blog.fens.me&#10;root: /&#10;permalink: :year/:month/:day/:title/&#10;tag_dir: tags&#10;archive_dir: archives&#10;category_dir: categories&#10;code_dir: downloads/code&#10;&#10;# &#25991;&#20214;&#30446;&#24405;&#10;source_dir: source&#10;public_dir: public&#10;&#10;# &#20889;&#21338;&#23458;&#37197;&#32622;&#10;new_post_name: :title.md # File name of new posts&#10;default_layout: post&#10;auto_spacing: false # Add spaces between asian characters and western characters&#10;titlecase: false # Transform title into titlecase&#10;external_link: true # Open external links in new tab&#10;max_open_file: 100&#10;multi_thread: true&#10;filename_case: 0&#10;render_drafts: false&#10;post_asset_folder: false&#10;highlight:&#10;  enable: true&#10;  line_number: true&#10;  tab_replace:&#10;&#10;# &#30446;&#24405;&#21644;&#26631;&#31614;&#10;default_category: uncategorized&#10;category_map:&#10;tag_map:&#10;&#10;# &#24402;&#26723;&#35774;&#32622;&#10;## 2: Enable pagination&#10;## 1: Disable pagination&#10;## 0: Fully Disable&#10;archive: 2&#10;category: 2&#10;tag: 2&#10;&#10;# &#26381;&#21153;&#22120;&#35774;&#32622;&#10;## Hexo uses Connect as a server&#10;## You can customize the logger format as defined in&#10;## http://www.senchalabs.org/connect/logger.html&#10;port: 4000&#10;server_ip: 0.0.0.0&#10;logger: false&#10;logger_format:&#10;&#10;# &#26102;&#38388;&#21644;&#26085;&#26399;&#26684;&#24335;&#10;## Hexo uses Moment.js to parse and display date&#10;## You can customize the date format as defined in&#10;## http://momentjs.com/docs/#/displaying/format/&#10;date_format: MMM D YYYY&#10;time_format: H:mm:ss&#10;&#10;# &#20998;&#39029;&#35774;&#32622;&#10;## Set per_page to 0 to disable pagination&#10;per_page: 10&#10;pagination_dir: page&#10;&#10;# &#35780;&#35770;&#10;disqus_shortname:&#10;&#10;# &#25554;&#20214;&#21644;&#30382;&#32932;&#10;## Plugins: https://github.com/tommy351/hexo/wiki/Plugins&#10;## Themes: https://github.com/tommy351/hexo/wiki/Themes&#10;theme: landscape&#10;exclude_generator:&#10;&#10;# Markdown&#35821;&#27861;&#10;## https://github.com/chjj/marked&#10;markdown:&#10;  gfm: true&#10;  pedantic: false&#10;  sanitize: false&#10;  tables: true&#10;  breaks: true&#10;  smartLists: true&#10;  smartypants: true&#10;&#10;# CSS&#30340;stylus&#26684;&#24335;&#10;stylus:&#10;  compress: false&#10;&#10;# &#37096;&#32626;&#37197;&#32622;&#10;## Docs: http://hexo.io/docs/deployment.html&#10;deploy:&#10;  type:&#10;3 &#21629;&#20196;&#34892;&#20351;&#29992;&#10;&#10;&#26597;&#30475;&#21629;&#20196;&#34892;&#24110;&#21161;&#10;&#10;&#10;D:\&#62; hexo help&#10;Usage: hexo&#10;&#10;Commands:&#10;  help      Get help on a command&#10;  init      Create a new Hexo folder&#10;  migrate   Migrate your site from other system to Hexo&#10;  version   Display version information&#10;&#10;Global Options:&#10;  --config   Specify config file instead of using _config.yml&#10;  --debug    Display all verbose messages in the terminal&#10;  --safe     Disable all plugins and scripts&#10;  --silent   Hide output on console&#10;&#10;For more help, you can use `hexo help [command]` for the detailed information&#10;or you can check the docs: http://hexo.io/docs/</span><br></pre></td></tr></table></figure>
+<p>命令行解释：</p>
+<ul>
+<li>help 查看帮助信息</li>
+<li>init 创建一个hexo项目</li>
+<li>migrate 从其他系统向hexo迁移</li>
+<li>version 查看hexo的版本</li>
+<li>–config参数，指定配置文件，代替默认的_config.yml</li>
+<li>–debug参数，调试模式，输出所有日志信息</li>
+<li>–safe参数，安全模式，禁用所有的插件和脚本</li>
+<li>–silent参数，无日志输出模式</li>
+</ul>
+<p>创建新文章<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\workspace\javascript\nodejs-hexo&#62;hexo new &#26032;&#30340;&#24320;&#22987;&#10;[info] File created at D:\workspace\javascript\nodejs-hexo\source\_posts\&#26032;&#30340;&#24320;&#22987;.md</span><br></pre></td></tr></table></figure></p>
+<p>3 发布到Github<br>写完了文章，我们就可以发布了。要说明的一点是hexo的静态博客框架，那什么是静态博客呢？静态博客，是只包含html, javascript, css文件的网站，没有动态的脚本。虽然我们是用Node进行的开发，但博客的发布后就与Node无关了。在发布之前，我们要通过一条命令，把所有的文章都做静态化处理，就是生成对应的html, javascript, css，使得所有的文章都是由静态文件组成的。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\workspace\javascript\nodejs-hexo&#62;hexo generate&#10;[info] Files loaded in 0.895s&#10;[create] Public: js\script.js&#10;[create] Public: css\fonts\fontawesome-webfont.svg&#10;[create] Public: css\fonts\FontAwesome.otf&#10;[create] Public: css\fonts\fontawesome-webfont.ttf&#10;[create] Public: css\fonts\fontawesome-webfont.eot&#10;[create] Public: css\fonts\fontawesome-webfont.woff&#10;[create] Public: fancybox\blank.gif&#10;[create] Public: fancybox\fancybox_loading@2x.gif&#10;[create] Public: fancybox\fancybox_overlay.png&#10;[create] Public: css\images\banner.jpg&#10;[create] Public: fancybox\fancybox_sprite.png&#10;[create] Public: fancybox\jquery.fancybox.css&#10;[create] Public: fancybox\fancybox_loading.gif&#10;[create] Public: fancybox\fancybox_sprite@2x.png&#10;[create] Public: fancybox\jquery.fancybox.js&#10;[create] Public: fancybox\jquery.fancybox.pack.js&#10;[create] Public: fancybox\helpers\jquery.fancybox-buttons.js&#10;[create] Public: fancybox\helpers\fancybox_buttons.png&#10;[create] Public: fancybox\helpers\jquery.fancybox-buttons.css&#10;[create] Public: fancybox\helpers\jquery.fancybox-media.js&#10;[create] Public: fancybox\helpers\jquery.fancybox-thumbs.css&#10;[create] Public: fancybox\helpers\jquery.fancybox-thumbs.js&#10;[create] Public: archives\index.html&#10;[create] Public: images\fens.me.png&#10;[create] Public: archives\2014\index.html&#10;[create] Public: archives\2014\05\index.html&#10;[create] Public: css\style.css&#10;[create] Public: index.html&#10;[create] Public: categories\&#26085;&#24535;\index.html&#10;[create] Public: categories\&#26085;&#24535;\&#31532;&#19968;&#22825;\index.html&#10;[create] Public: 2014\05\07\abc\index.html&#10;[create] Public: 2014\05\07\hello-world\index.html&#10;[create] Public: tags\&#24320;&#22987;\index.html&#10;[create] Public: tags\&#25105;\index.html&#10;[create] Public: tags\&#26085;&#35760;\index.html&#10;[info] 35 files generated in 0.711s</span><br></pre></td></tr></table></figure>
+<p>发布到Github</p>
+<p>接下来，我们把这个博客发布到github。<br><br>在github中创建一个项目nodejs-hexo，项目地址：<a href="https://github.com/bsspirit/nodejs-hexo" target="_blank" rel="external">https://github.com/bsspirit/nodejs-hexo</a><br><br>编辑全局配置文件：_config.yml，找到deploy的部分，设置github的项目地址。<br><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deploy:&#10;  type: git&#10;  repo: git@github.com:Dr-Kalen/36dr.git</span><br></pre></td></tr></table></figure></p>
+<p>然后，通过命令进行部署。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\workspace\javascript\nodejs-hexo&#62;hexo deploy&#10;[info] Start deploying: github&#10;[info] Setting up GitHub deployment...&#10;Initialized empty Git repository in D:/workspace/javascript/nodejs-hexo/.deploy/.git/&#10;[master (root-commit) 43873d3] First commit&#10; 1 file changed, 0 insertions(+), 0 deletions(-)&#10; create mode 100644 placeholder&#10;[info] Clearing .deploy folder...&#10;[info] Copying files from public folder...&#10;&#10;// &#30465;&#30053;&#37096;&#20998;&#36755;&#20986;&#10;&#10;Branch gh-pages set up to track remote branch gh-pages from github.&#10;To git@github.com:bsspirit/nodejs-hexo.git&#10; * [new branch]      gh-pages -&#62; gh-pages&#10;[info] Deploy done: github</span><br></pre></td></tr></table></figure></p>
+<p>4 模板安装<br><br>将Git Shell 切到Hexo目录下，然后执行下面的命令，将pacman主题下载到 themes/pacman 目录下。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#git clone https://github.com/A-limon/pacman.git themes/pacman</span><br></pre></td></tr></table></figure></p>
+<p>修改你的博客根目录Hexo下的config.yml配置文件中的theme属性，将其设置为pacman。<br><br><br>更新pacman主题<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd themes/pacman&#10;git pull</span><br></pre></td></tr></table></figure></p>
+<p>注意：先备份_config.yml 文件后再升级<br><br>模板详细的配置和升级请参照 [2]</p>
+<h2 id="参考文献">参考文献</h2><ol>
+<li><a href="http://blog.fens.me/hexo-blog-github/" target="_blank" rel="external">Hexo在github上构建免费的Web应用</a></li>
+<li><a href="http://www.cnblogs.com/zhcncn/p/4097881.html" target="_blank" rel="external">Hexo 优化和模板安装</a></li>
+<li><a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Hexo 官方文档</a></li>
+</ol>
 
       
     </div>
