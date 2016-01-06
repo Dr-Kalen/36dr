@@ -224,7 +224,8 @@ var _hmt = _hmt || [];
 <h4 id="第三步，上传管理服务器的信任秘钥">第三步，上传管理服务器的信任秘钥</h4><p>首先需要创建秘钥，若电脑上~/.ssh/目录下已经有id_rsa.pub文件则不用考虑一下命令可忽略。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen</span><br></pre></td></tr></table></figure></p>
 <p>一直回车，会在~/.ssh/目录下生成两个文件：<br>id_rsa<br>私钥文件。是基于RSA算法创建。该私钥文件要妥善保管，不要泄。<br>id_rsa.pub<br>公钥文件。和id_rsa文件是一对儿，该文件作为公钥文件，可以公开。<br>然后将已经生成好的id_rsa.pub上传到ubantu服务器上/tmp目录以备使用<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-copy-id -i ~/.ssh/id_rsa.pub git@server:/tmp</span><br></pre></td></tr></table></figure></p>
 <h4 id="第四步，服务器安装git">第四步，服务器安装git</h4><p>在Ubantu服务器上安装git软件，使用命令<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure></p>
-<h3 id="Gitolite服务器部署方法">Gitolite服务器部署方法</h3><h4 id="第一步，克隆Gitolite源码">第一步，克隆Gitolite源码</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// &#20999;&#25442;&#21040;git&#29992;&#25143;&#10;su git&#10;// &#20999;&#25442;&#21040;git&#26681;&#30446;&#24405;&#10;cd&#10;// clone gitolite&#10;$ git clone https://github.com/sitaramc/gitolite.git</span><br></pre></td></tr></table></figure>
+<h3 id="Gitolite服务器部署方法">Gitolite服务器部署方法</h3><p>Gitolite官方github地址：<a href="https://github.com/sitaramc/gitolite" target="_blank" rel="external">https://github.com/sitaramc/gitolite</a><br>Gitolite官方安装方法：<a href="http://gitolite.com/gitolite/install.html" target="_blank" rel="external">http://gitolite.com/gitolite/install.html</a></p>
+<h4 id="第一步，克隆Gitolite源码">第一步，克隆Gitolite源码</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// &#20999;&#25442;&#21040;git&#29992;&#25143;&#10;su git&#10;// &#20999;&#25442;&#21040;git&#26681;&#30446;&#24405;&#10;cd&#10;// clone gitolite&#10;$ git clone https://github.com/sitaramc/gitolite.git</span><br></pre></td></tr></table></figure>
 <h4 id="第二步，安装个Gitolite">第二步，安装个Gitolite</h4><p>进入.ssh目录，如果有authorized_keys，删除即可。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// &#26032;&#24314;bin&#30446;&#24405;&#10;mkdir bin&#10;&#10;// &#23433;&#35013;gitolite&#65292;&#40664;&#35748;&#20250;&#23433;&#35013;&#21040;bin&#65292;&#22914;&#26524;&#24819;&#23433;&#35013;&#21040;&#20320;&#33258;&#24049;&#20043;&#30340;&#25351;&#23450;&#30340;&#30446;&#24405;&#35831;&#21442;&#32771;&#23448;&#26041;&#23433;&#35013; -to&#10;gitolite/install -ln&#10;&#10;// &#37197;&#32622;&#31192;&#38053;&#10;bin/gitolite setup -pk admin.pub</span><br></pre></td></tr></table></figure></p>
 <p>测试是否执行成功<br>首先git根目录下是否生成了projects.list和repositories<br>同时可以进入.ssh，可以看到新生成的authorized_keys，以后每一次提交新用户都会写到这个里边。判断是否用户添加成功，看这个里边文件是否新增了那个用户的key即可。</p>
 <h4 id="第三步，客户端管理用户">第三步，客户端管理用户</h4><p>首先使用刚刚提交id_rsa电脑克隆gitolite-admin代码<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// &#32467;&#23614;&#19981;&#38656;&#35201;&#21152;.git&#10;$  git clone git@server:gitolite-admin</span><br></pre></td></tr></table></figure></p>
@@ -248,7 +249,40 @@ var _hmt = _hmt || [];
 <li>dev1这个用户对dev开头的分支拥有读/写/强制更新的权限</li>
 <li>dev2这个用户对于wip分支（严格匹配）具有读/写权限</li>
 </ol>
-<p>以上则是Gitolite的部署方法<br>优点可以对git账户进行权限配置，可以深入到库的分支权限中<br>缺点无法做到像SVN一样分配账户，密码的方式来控制不在rsa的用户进行开发</p>
+<h4 id="高级篇，gitolite创建仓库方法">高级篇，gitolite创建仓库方法</h4><ol>
+<li><p>登录远程服务器创建<br>ssh登录服务器，切换至git用户，进入相关目录，创建某仓储</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir somegit.git&#10;cd somegit.git&#10;git init --bare</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改gitolite.conf创建仓储<br>打开gitolite-admin/conf/gitolite.conf，添加：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">repo testing2&#10;    RW+    =  @all</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>保存修改，提交。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git@linux-dev:~/gitolite-admin$ git commit-m&#39;add test2&#39;&#10;[master b26be9a] add test2&#10;1 file changed, 4 insertions(+)&#10;git@linux-dev:~/gitolite-admin$ git push origin master&#10;Counting objects: 7, done.&#10;Delta compression using up to2 threads.&#10;Compressing objects: 100% (3/3), done.&#10;Writing objects: 100% (4/4),350 bytes, done.&#10;Total 4 (delta 1), reused0 (delta0)&#10;remote: &#21021;&#22987;&#21270;&#31354;&#30340; Git &#29256;&#26412;&#24211;&#20110; /home/git/repositories/testing2.git/&#10;To git@127.0.0.1:gitolite-admin&#10;   0c409e4..b26be9a  master -&#62; master</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，gitolite会自动检测配置文件，发现目前没有的仓储会自动才创建。</p>
+<ol>
+<li>高端大气上档次<br>对于通配符版本库，即repo Projects/.+类型的，在有创建权限的用户shell中，本地执行：<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir somegit&#10;cd somegit&#10;git init&#10;git commit --allow-empty&#10;git remote add origin git@server:Projects/somegit.git&#10;git push origin master</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>gitolite会直接创建新的仓储。</p>
+<p>删除：<br>1.在conf/gitolite.conf中删除相关仓储配置信息（gitolite不会自动删除服务器上的文件，这点与add不同）；<br>2.登录服务器删除需要删除的仓储。</p>
+<p>重命名<br>同删除操作的步骤。</p>
+<p>以上则是Gitolite的部署方法</p>
+<ul>
+<li>优点可以对git账户进行权限配置，可以深入到库的分支权限中</li>
+<li>缺点无法做到像SVN一样分配账户，密码的方式来控制不在rsa的用户进行开发</li>
+</ul>
+<h3 id="Gitosis服务器部署方法">Gitosis服务器部署方法</h3><h4 id="第一步，安装python_setuptools">第一步，安装python setuptools</h4><p>python是gitosis需要的前置条件，所以需要安装<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install python-setuptools</span><br></pre></td></tr></table></figure></p>
+<h4 id="第二步，克隆gitosis源码">第二步，克隆gitosis源码</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /home/git&#10;git clone git://eagain.net/gitosis.git&#10;cd gitosis&#10;python setup.py install</span><br></pre></td></tr></table></figure>
+<h4 id="第三步，初始化gitosis和修改可操作权限">第三步，初始化gitosis和修改可操作权限</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#&#20999;&#25442;&#21040;&#26381;&#21153;&#22120;&#10;$ sudo -H -u git gitosis-init &#60; /tmp/id_rsa.pub (&#21069;&#38754;&#20197;&#22791;&#29992;&#30340;pub)&#10;#&#20462;&#25913;post-update&#26435;&#38480;&#10;$ sudo chmod 755 /home/git/repositories/gitosis-admin.git/hooks/post-update</span><br></pre></td></tr></table></figure>
+<h4 id="第四步，客户端管理用户">第四步，客户端管理用户</h4><p>切换到提供id_rsa的电脑，克隆gitosis管理仓库<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git@&#20027;&#26426;&#21517;:gitosis-admin.git&#10;$ cd gitosis-admin</span><br></pre></td></tr></table></figure></p>
+<p>修改gitosis.conf文件<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[gitosis]&#10;&#10;[group gitosis-admin]&#10;writable = gitosis-admin&#10;members = miao@u32-192-168-1-110</span><br></pre></td></tr></table></figure></p>
+<p>group 表示群组<br>writalbe 表示仓库名称<br>members 表示可允许操作的用户，用户的名称与keydir上传的pub名称一致</p>
+<p>添加keydir和修改gitosis.conf文件之后提交，用户管理完成，即可下载仓库无密码方式提交<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -am &#34;add member john and project foo&#34;&#10;git push</span><br></pre></td></tr></table></figure></p>
+<h4 id="gitosis部署常见问题">gitosis部署常见问题</h4><p>首先确定 /home/git/repositories/gitosis-admin.git/hooks/post-update 为可执行即属性为 0755</p>
+<ol>
+<li>git操作需要输入密码<br>原因<br>公密未找到<br>解决<br>上传id_pub.rsa到keydir并改为’gitosis帐号.pub’形式，如miao.pub。扩展名.pub不可省略</li>
+<li>ERROR:gitosis.serve.main:Repository read access denied<br>原因<br>gitosis.conf中的members与keydir中的用户名不一致，如gitosis中的members = foo@bar，但keydir中的公密名却叫foo.pub<br>解决<br>使keydir的名称与gitosis中members所指的名称一致。<br>改为members = foo 或 公密名称改为foo@bar.pub</li>
+</ol>
 
       
     </div>
