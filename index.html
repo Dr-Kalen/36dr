@@ -207,7 +207,7 @@ var _hmt = _hmt || [];
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/06/gitserver/">Ubantu搭建Git提服务器</a>
+      <a class="article-title" href="/2016/01/06/gitserver/">Ubantu搭建Git服务器</a>
     </h1>
   
 
@@ -283,6 +283,7 @@ var _hmt = _hmt || [];
 <li>git操作需要输入密码<br>原因<br>公密未找到<br>解决<br>上传id_pub.rsa到keydir并改为’gitosis帐号.pub’形式，如miao.pub。扩展名.pub不可省略</li>
 <li>ERROR:gitosis.serve.main:Repository read access denied<br>原因<br>gitosis.conf中的members与keydir中的用户名不一致，如gitosis中的members = foo@bar，但keydir中的公密名却叫foo.pub<br>解决<br>使keydir的名称与gitosis中members所指的名称一致。<br>改为members = foo 或 公密名称改为foo@bar.pub</li>
 </ol>
+<p>引用文献：<a href="http://www.dbpoo.com/git-gitolite-gitweb/" target="_blank" rel="external">http://www.dbpoo.com/git-gitolite-gitweb/</a></p>
 
       
     </div>
@@ -764,7 +765,7 @@ var _hmt = _hmt || [];
 <li>AndroidStudio 依赖导入<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &#39;com.squareup.retrofit:retrofit:2.0.0-beta2&#39;&#10;or&#10;compile &#39;com.squareup.retrofit:retrofit:1.9.0&#39;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="Retrofit2-0使用">Retrofit2.0使用</h2><p>敬请期待10月3日更新文档</p>
+<h2 id="Retrofit2-0使用">Retrofit2.0使用</h2><p>敬请期待1月19日更新文档</p>
 <h2 id="Retrofit1-9_使用">Retrofit1.9 使用</h2><p>Retrofit使用中最重要的几个类：RestAdapter, Interface，Convert,RequestInterceptor,CallbackRunnable。<br></p>
 <p>Retrofit使用步骤：<br></p>
 <ol>

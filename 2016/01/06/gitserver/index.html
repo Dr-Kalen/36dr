@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Ubantu搭建Git提服务器 | Dr&#39;s Blog</title>
+  <title>Ubantu搭建Git服务器 | Dr&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Ubantu部署Git服务器基本配置环境第一步，检查ssh是否正常检查ubantu服务器是否安装过ssh-server，Ubuntu默认并没有安装ssh服务，如果通过ssh链接Ubuntu，需要自己手动安装openssh-server。判断是否安装ssh服务，可以通过如下命令进行：1ssh localhost&amp;#10;The authenticity of host &amp;#39;localhost">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ubantu搭建Git提服务器">
+<meta property="og:title" content="Ubantu搭建Git服务器">
 <meta property="og:url" content="http://www.baidu.com/2016/01/06/gitserver/index.html">
 <meta property="og:site_name" content="Dr's Blog">
 <meta property="og:description" content="Ubantu部署Git服务器基本配置环境第一步，检查ssh是否正常检查ubantu服务器是否安装过ssh-server，Ubuntu默认并没有安装ssh服务，如果通过ssh链接Ubuntu，需要自己手动安装openssh-server。判断是否安装ssh服务，可以通过如下命令进行：1ssh localhost&amp;#10;The authenticity of host &amp;#39;localhost">
-<meta property="og:updated_time" content="2016-01-06T05:30:12.000Z">
+<meta property="og:updated_time" content="2016-01-06T09:58:22.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ubantu搭建Git提服务器">
+<meta name="twitter:title" content="Ubantu搭建Git服务器">
 <meta name="twitter:description" content="Ubantu部署Git服务器基本配置环境第一步，检查ssh是否正常检查ubantu服务器是否安装过ssh-server，Ubuntu默认并没有安装ssh服务，如果通过ssh链接Ubuntu，需要自己手动安装openssh-server。判断是否安装ssh服务，可以通过如下命令进行：1ssh localhost&amp;#10;The authenticity of host &amp;#39;localhost">
   
     <link rel="alternative" href="/atom.xml" title="Dr&#39;s Blog" type="application/atom+xml">
@@ -206,7 +206,7 @@ var _hmt = _hmt || [];
         
   
     <h1 class="article-title" itemprop="name">
-      Ubantu搭建Git提服务器
+      Ubantu搭建Git服务器
     </h1>
   
 
@@ -293,6 +293,7 @@ var _hmt = _hmt || [];
 <li>git操作需要输入密码<br>原因<br>公密未找到<br>解决<br>上传id_pub.rsa到keydir并改为’gitosis帐号.pub’形式，如miao.pub。扩展名.pub不可省略</li>
 <li>ERROR:gitosis.serve.main:Repository read access denied<br>原因<br>gitosis.conf中的members与keydir中的用户名不一致，如gitosis中的members = foo@bar，但keydir中的公密名却叫foo.pub<br>解决<br>使keydir的名称与gitosis中members所指的名称一致。<br>改为members = foo 或 公密名称改为foo@bar.pub</li>
 </ol>
+<p>引用文献：<a href="http://www.dbpoo.com/git-gitolite-gitweb/" target="_blank" rel="external">http://www.dbpoo.com/git-gitolite-gitweb/</a></p>
 
       
     </div>
@@ -333,7 +334,7 @@ var _hmt = _hmt || [];
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="gitserver" data-title="Ubantu搭建Git提服务器" data-url="http://www.baidu.com/2016/01/06/gitserver/"></div>
+	<div class="ds-thread" data-thread-key="gitserver" data-title="Ubantu搭建Git服务器" data-url="http://www.baidu.com/2016/01/06/gitserver/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
