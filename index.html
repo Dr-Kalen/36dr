@@ -120,7 +120,7 @@ var _hmt = _hmt || [];
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android-Studio/" style="font-size: 10px;">Android Studio</a> <a href="/tags/Parse/" style="font-size: 10px;">Parse</a> <a href="/tags/git-gitlite-gitosis-gitweb/" style="font-size: 10px;">git gitlite gitosis gitweb</a> <a href="/tags/反射利用/" style="font-size: 10px;">反射利用</a> <a href="/tags/技术文章/" style="font-size: 10px;">技术文章</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/网络篇/" style="font-size: 10px;">网络篇</a> <a href="/tags/随记/" style="font-size: 10px;">随记</a>
+						<a href="/tags/Android-Studio/" style="font-size: 10px;">Android Studio</a> <a href="/tags/Parse/" style="font-size: 10px;">Parse</a> <a href="/tags/git-gitlite-gitosis-gitweb/" style="font-size: 10px;">git gitlite gitosis gitweb</a> <a href="/tags/反射利用/" style="font-size: 10px;">反射利用</a> <a href="/tags/技术文章/" style="font-size: 10px;">技术文章</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/网络篇/" style="font-size: 20px;">网络篇</a> <a href="/tags/随记/" style="font-size: 10px;">随记</a>
 					</div>
 				</section>
 				
@@ -732,6 +732,105 @@ var _hmt = _hmt || [];
 
 
   
+    <article id="post-20160119" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/31/20160119/" class="article-date">
+  	<time datetime="2015-10-31T03:37:26.000Z" itemprop="datePublished">2015-10-31</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/31/20160119/">Retrofit2.0基本使用和个人封装</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言">前言</h2><p>对比目前用的算是顺手的网络框架Volley，Okhttp，Retrofit,通常优先选择Retrofit，若Retrofit无法满足开发，则选择Okhttp。前两种已经完全可以实现大部分的网络开发需要，而且开发中使用极其简约大方。<br>我们详细讨论Retrofit的优点和缺点：<br><br>Retrofit由Square组织编写的网络框架，使用技术动态代理和反射，使用OO设计简约网络代码。<br></p>
+<h2 id="Retrofit装备">Retrofit装备</h2><ul>
+<li>框架下载地址：<a href="https://github.com/square/retrofit" target="_blank" rel="external">https://github.com/square/retrofit</a></li>
+<li>官网使用说明文档：<a href="http://square.github.io/retrofit/#api-declaration" target="_blank" rel="external">http://square.github.io/retrofit/#api-declaration</a></li>
+<li>AndroidStudio 依赖导入<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &#39;com.squareup.retrofit:retrofit:2.0.0-beta2&#39;&#10;or&#10;compile &#39;com.squareup.retrofit:retrofit:1.9.0&#39;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Retrofit1-9使用">Retrofit1.9使用</h2><p><a href="/2015/10/31/20151031/">请阅读Retrofit1.9</a></p>
+<h2 id="Retrofit2-0_使用">Retrofit2.0 使用</h2><p>Retrofit使用中最重要的几个类：Retrofit, Interface，Call<br></p>
+<p>Retrofit使用步骤：<br></p>
+<ol>
+<li>定义接口，参数声明，URL通过Annotation指定</li>
+<li>设置Retrofit相关的参数（baseUrl，数据解析）</li>
+<li>通过Retrofit.create生成一个接口实现类（动态代理类）</li>
+<li>调用接口请求数据</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注： <span class="number">2.0</span>强制要求接口方法返回参数不能为<span class="keyword">void</span>，同时接口方法中没有Callback参数</span><br></pre></td></tr></table></figure>
+<p>接口定义方式<br><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@GET</span>(<span class="string">"/group/&#123;id&#125;/profile"</span>)  </span><br><span class="line"><span class="function">List&lt;User&gt; <span class="title">userlist</span><span class="params">(@Path(<span class="string">"id"</span>)</span> <span class="keyword">int</span> id)</span>;</span><br></pre></td></tr></table></figure></p>
+<p>Retrofit支持@GET、@POST、@HEAD、@PUT、@DELETA、@PATCH，和参数相关的@Path、@Field、@Multipart，表示网络请求使用的请求方式。另外如何自定义Annotation<a href="/2015/11/01/20151101/">请阅读自定义Annotation</a>。<br></p>
+<p>生成RestAdapter动态代理类：<br><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GsonBuilder builder = <span class="keyword">new</span> GsonBuilder();</span><br><span class="line">builder.setFieldNamingStrategy(<span class="keyword">new</span> AnnotateNaming());</span><br><span class="line">Gson gson = builder.create();</span><br><span class="line"></span><br><span class="line">Retrofit retrofit = <span class="keyword">new</span> Retrofit.Builder()</span><br><span class="line">                   .baseUrl(API_URL)</span><br><span class="line">                   .addConverterFactory(GsonConverterFactory.create(gson))</span><br><span class="line">                   .build();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">github = retrofit.create(Interfaces.class);</span><br></pre></td></tr></table></figure></p>
+<p>通过Retrofit将Interfaces自定义的的网络请求接口生成动态代理类，同时设置请求的参数：</p>
+<ul>
+<li>baseUrl 设置网络请求服务器url前缀，地址必须以“/”结束</li>
+<li>设置addConverterFactory，数据返回之后的解析器，默认采用GsonConverter解析，2.0中提供了六种解析方式：Gson，Jackson,Moshi,Protobuf,Wire,SimpleXML<br>*<br>Convert自定义如：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*定义Date解析方式*/</span></span><br><span class="line">Gson gson = <span class="keyword">new</span> GsonBuilder()</span><br><span class="line">.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)</span><br><span class="line">.registerTypeAdapter(Date.class, <span class="keyword">new</span> DateTypeAdapter())</span><br><span class="line">.create();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>数据返回处理：<br><br>Retrofit2.0中默认在主线程返回数据，则可以直接对数据进行展示和更新<br>如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 同步处理*/</span></span><br><span class="line"><span class="annotation">@GET</span>(<span class="string">"member/register/mobileExists"</span>)</span><br><span class="line"><span class="function">Call&lt;BaseObjectType&gt; <span class="title">mobileExists</span><span class="params">(@Query(<span class="string">"mobile"</span>)</span> String mobile)</span>;</span><br></pre></td></tr></table></figure></p>
+<h2 id="总结">总结</h2><p>Retrofit默认没有指定解析方式，需要首先指定，如：使用GsonConverter。</p>
+<p>总体来说Retrofit看起来很好用，不过要求服务端返回数据最好要规范，不然如果请求成功返回一种数据结构，请求失败返回另一种数据结构，不好用Converter解析，接口的定义也不好定义。</p>
+<h3 id="Retrofit_2-0_个人封装">Retrofit 2.0 个人封装</h3><p>通常开发中客户端与服务器会定义一种通用的协议：<em>head+body</em> 形式，head包含数据的状态，提示文字等等。body的形式分为：字段，对象，数组。若是字段则创建一个对象定义head和body，若是对象则出现json中套有对象，如果强制按照Retrofit方式开发，则需要创建两个对象来获得数据,导致项目中出现量的不必要的对象。开发中出现只是字段的毕竟是少数情况，那么以此类推所有数据访问都需要创建两个对象，假若是<br>数组更加显得开发困难，因此个人针对Retrofit进行了访问数据返回的特别处理，采用泛型定义我们需要的对象实体。<br></p>
+<p>衍生三个实体类：<br></p>
+<ul>
+<li>BaseType 针对body为字段</li>
+<li>BaseObjectType 针对body为object形式</li>
+<li>BaseSequenceType 针对body为数组形式。</li>
+</ul>
+<p>BaseType定义<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>  <span class="class"><span class="keyword">class</span> <span class="title">BaseType</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String message;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">boolean</span> state;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>用于获取基本的数据结构，若除这些字段还有其他，则可以自己集成BaseType扩展。<br></p>
+<p>BaseObjectType定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseObjectType</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">BaseType</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> T data;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  T <span class="title">getObject</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用于获取body为对象情况，当数据解析之后，通过getObject方式获得我们需要的实体对象。<br></p>
+<p>BaseSequenceType定义<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseSequenceType</span> &lt;<span class="title">T</span>&gt;  <span class="keyword">extends</span> <span class="title">BaseType</span></span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;T&gt; data;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;T&gt; <span class="title">getList</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data == <span class="keyword">null</span> ? <span class="number">0</span> : data.size();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>用于获取body为数组的情况，当数据返回之后通过getList方式获得实体数组。<br></p>
+<p>具体通过Retrofit和泛型如何访问数据，如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Call&lt;BaseObjectType&gt; call =  NetworkRequest.getInstance().mobileExists(<span class="string">"18708140959"</span>);</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    BaseObjectType response  = call.execute().body();</span><br><span class="line">    Toast.makeText(MainActivity.<span class="keyword">this</span>, response.message, Toast.LENGTH_SHORT).show();</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>封装之后的Demo下载地址：<a href="https://github.com/Dr-Kalen/RetrofitDemo2.0" target="_blank" rel="external">https://github.com/Dr-Kalen/RetrofitDemo2.0</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络篇/">网络篇</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-20151031" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -749,7 +848,7 @@ var _hmt = _hmt || [];
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/31/20151031/">Retrofit基本使用和个人封装</a>
+      <a class="article-title" href="/2015/10/31/20151031/">Retrofit1.0基本使用和个人封装</a>
     </h1>
   
 
@@ -765,7 +864,7 @@ var _hmt = _hmt || [];
 <li>AndroidStudio 依赖导入<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &#39;com.squareup.retrofit:retrofit:2.0.0-beta2&#39;&#10;or&#10;compile &#39;com.squareup.retrofit:retrofit:1.9.0&#39;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="Retrofit2-0使用">Retrofit2.0使用</h2><p>敬请期待1月19日更新文档</p>
+<h2 id="Retrofit2-0使用">Retrofit2.0使用</h2><p><a href="/2016/01/19/20160119/">请阅读Retrofit2.0</a></p>
 <h2 id="Retrofit1-9_使用">Retrofit1.9 使用</h2><p>Retrofit使用中最重要的几个类：RestAdapter, Interface，Convert,RequestInterceptor,CallbackRunnable。<br></p>
 <p>Retrofit使用步骤：<br></p>
 <ol>
