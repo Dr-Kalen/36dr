@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://www.baidu.com/2016/01/06/gitserver/index.html">
 <meta property="og:site_name" content="Dr's Blog">
 <meta property="og:description" content="Ubantu部署Git服务器基本配置环境第一步，检查ssh是否正常检查ubantu服务器是否安装过ssh-server，Ubuntu默认并没有安装ssh服务，如果通过ssh链接Ubuntu，需要自己手动安装openssh-server。判断是否安装ssh服务，可以通过如下命令进行：1ssh localhost&amp;#10;The authenticity of host &amp;#39;localhost">
-<meta property="og:updated_time" content="2016-01-06T09:58:22.000Z">
+<meta property="og:updated_time" content="2016-04-01T17:56:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ubantu搭建Git服务器">
 <meta name="twitter:description" content="Ubantu部署Git服务器基本配置环境第一步，检查ssh是否正常检查ubantu服务器是否安装过ssh-server，Ubuntu默认并没有安装ssh服务，如果通过ssh链接Ubuntu，需要自己手动安装openssh-server。判断是否安装ssh服务，可以通过如下命令进行：1ssh localhost&amp;#10;The authenticity of host &amp;#39;localhost">
@@ -121,7 +121,7 @@ var _hmt = _hmt || [];
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android-Studio/" style="font-size: 10px;">Android Studio</a> <a href="/tags/Parse/" style="font-size: 10px;">Parse</a> <a href="/tags/git-gitlite-gitosis-gitweb/" style="font-size: 10px;">git gitlite gitosis gitweb</a> <a href="/tags/反射利用/" style="font-size: 10px;">反射利用</a> <a href="/tags/技术文章/" style="font-size: 10px;">技术文章</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/网络篇/" style="font-size: 20px;">网络篇</a> <a href="/tags/随记/" style="font-size: 10px;">随记</a>
+						<a href="/tags/Android-Studio/" style="font-size: 10px;">Android Studio</a> <a href="/tags/Parse/" style="font-size: 20px;">Parse</a> <a href="/tags/git-gitlite-gitosis-gitweb/" style="font-size: 10px;">git gitlite gitosis gitweb</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/反射利用/" style="font-size: 10px;">反射利用</a> <a href="/tags/技术文章/" style="font-size: 10px;">技术文章</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/网络篇/" style="font-size: 20px;">网络篇</a> <a href="/tags/随记/" style="font-size: 10px;">随记</a>
 					</div>
 				</section>
 				
@@ -232,7 +232,7 @@ var _hmt = _hmt || [];
 <p>然后再次使用命令来检验安装是否成功<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -e|grep ssh&#10;or&#10;ssh localhost</span><br></pre></td></tr></table></figure></p>
 <h4 id="第二步，创建管理账户，如git">第二步，创建管理账户，如git</h4><p>在ubantu服务器上使用命令创建git账户和设置密码<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo useradd -m git&#10;$ sudo passwd git</span><br></pre></td></tr></table></figure></p>
 <h4 id="第三步，上传管理服务器的信任秘钥">第三步，上传管理服务器的信任秘钥</h4><p>首先需要创建秘钥，若电脑上~/.ssh/目录下已经有id_rsa.pub文件则不用考虑一下命令可忽略。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen</span><br></pre></td></tr></table></figure></p>
-<p>一直回车，会在~/.ssh/目录下生成两个文件：<br>id_rsa<br>私钥文件。是基于RSA算法创建。该私钥文件要妥善保管，不要泄。<br>id_rsa.pub<br>公钥文件。和id_rsa文件是一对儿，该文件作为公钥文件，可以公开。<br>然后将已经生成好的id_rsa.pub上传到ubantu服务器上/tmp目录以备使用<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-copy-id -i ~/.ssh/id_rsa.pub git@server:/tmp</span><br></pre></td></tr></table></figure></p>
+<p>一直回车，会在~/.ssh/目录下生成两个文件：<br>id_rsa<br>私钥文件。是基于RSA算法创建。该私钥文件要妥善保管，不要泄。<br>id_rsa.pub<br>公钥文件。和id_rsa文件是一对儿，该文件作为公钥文件，可以公开。<br>然后将已经生成好的id_rsa.pub上传到ubantu服务器上/tmp目录以备使用<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ scp  ~/.ssh/id_rsa.pub git@server:/tmp</span><br></pre></td></tr></table></figure></p>
 <h4 id="第四步，服务器安装git">第四步，服务器安装git</h4><p>在Ubantu服务器上安装git软件，使用命令<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure></p>
 <h3 id="Gitolite服务器部署方法">Gitolite服务器部署方法</h3><p>Gitolite官方github地址：<a href="https://github.com/sitaramc/gitolite" target="_blank" rel="external">https://github.com/sitaramc/gitolite</a><br>Gitolite官方安装方法：<a href="http://gitolite.com/gitolite/install.html" target="_blank" rel="external">http://gitolite.com/gitolite/install.html</a></p>
 <h4 id="第一步，克隆Gitolite源码">第一步，克隆Gitolite源码</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// &#20999;&#25442;&#21040;git&#29992;&#25143;&#10;su git&#10;// &#20999;&#25442;&#21040;git&#26681;&#30446;&#24405;&#10;cd&#10;// clone gitolite&#10;$ git clone https://github.com/sitaramc/gitolite.git</span><br></pre></td></tr></table></figure>

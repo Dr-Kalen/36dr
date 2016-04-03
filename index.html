@@ -120,7 +120,7 @@ var _hmt = _hmt || [];
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android-Studio/" style="font-size: 10px;">Android Studio</a> <a href="/tags/Parse/" style="font-size: 10px;">Parse</a> <a href="/tags/git-gitlite-gitosis-gitweb/" style="font-size: 10px;">git gitlite gitosis gitweb</a> <a href="/tags/反射利用/" style="font-size: 10px;">反射利用</a> <a href="/tags/技术文章/" style="font-size: 10px;">技术文章</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/网络篇/" style="font-size: 20px;">网络篇</a> <a href="/tags/随记/" style="font-size: 10px;">随记</a>
+						<a href="/tags/Android-Studio/" style="font-size: 10px;">Android Studio</a> <a href="/tags/Parse/" style="font-size: 20px;">Parse</a> <a href="/tags/git-gitlite-gitosis-gitweb/" style="font-size: 10px;">git gitlite gitosis gitweb</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/反射利用/" style="font-size: 10px;">反射利用</a> <a href="/tags/技术文章/" style="font-size: 10px;">技术文章</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/网络篇/" style="font-size: 20px;">网络篇</a> <a href="/tags/随记/" style="font-size: 10px;">随记</a>
 					</div>
 				</section>
 				
@@ -189,6 +189,127 @@ var _hmt = _hmt || [];
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-maven-install" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/25/maven-install/" class="article-date">
+  	<time datetime="2016-01-25T08:48:25.000Z" itemprop="datePublished">2016-01-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/25/maven-install/">Linux环境下Maven服务器搭建</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="Maven基本准备">Maven基本准备</h4><h3 id="Maven服务器下载">Maven服务器下载</h3><p>官网地址：<a href="http://download.sonatype.com/nexus/oss/nexus-2.11.1-01-bundle.zip" target="_blank" rel="external">http://download.sonatype.com/nexus/oss/nexus-2.11.1-01-bundle.zip</a>，通过此地址下载maven.<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ unzip nexus-2.11.1-01-bundle.zip</span><br></pre></td></tr></table></figure></p>
+<p>然后解压文件会得到nexus-2.6.0-05和sonatype-work。</p>
+<h3 id="Maven安装和启动">Maven安装和启动</h3><p>进入Maven解压nexus目录，然后执行：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nexus-2.11.1-01/bin/nexus start</span><br></pre></td></tr></table></figure></p>
+<p>在安装时可能会遇到错误，比如环境变量未配置时请配置一下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RUN_AS_USER=root   &#10;NEXUS_HOME=$HOME/nexus-2.0.3/</span><br></pre></td></tr></table></figure></p>
+<p>启动成功之后，通过<a href="http://ip:8081/nexus/index.html" target="_blank" rel="external">http://ip:8081/nexus/index.html</a>访问maven仓库，默认管理员账户和密码：admin/admin123</p>
+<h3 id="修改Maven工作目录sonatype-work位置">修改Maven工作目录sonatype-work位置</h3><p>默认Maven安装之后会生成sonatype-work目录，此目录将作为默认的jar文件放置处。为了防止后期不停的累加导致Maven仓库变大同时也不利于后期对Maven的管理。<br>–待定–</p>
+<h3 id="修改Maven仓库访问的端口">修改Maven仓库访问的端口</h3><p>首先查看Maven是否正在运行<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ps -ef |grep nexus</span><br></pre></td></tr></table></figure></p>
+<p>然后通过kill杀掉进程，然后修改maven配置文件<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd <span class="variable">$HOME</span>/nexus-<span class="number">2.11</span>.<span class="number">1</span>-<span class="number">01</span>/conf</span><br><span class="line">$ vi nexus.properties</span><br></pre></td></tr></table></figure></p>
+<p>把application-port=8081 修改为application-port=8981<br><br>然后访问：<a href="http://IP:8981/nexus/index.html#welcome" target="_blank" rel="external">http://IP:8981/nexus/index.html#welcome</a></p>
+<h3 id="仓库添加">仓库添加</h3><ul>
+<li><a href="http://www.open-open.com/lib/view/open1435109824278.html" target="_blank" rel="external">个人发布库流程</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-sampleXml" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/19/sampleXml/" class="article-date">
+  	<time datetime="2016-01-19T14:38:58.000Z" itemprop="datePublished">2016-01-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/19/sampleXml/">Simple XML解析（极其方便的XML解析）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>url：<a href="http://simple.sourceforge.net/download.php" target="_blank" rel="external">http://simple.sourceforge.net/download.php</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Parse/">Parse</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-20160119" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -321,7 +442,7 @@ var _hmt = _hmt || [];
 <p>然后再次使用命令来检验安装是否成功<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -e|grep ssh&#10;or&#10;ssh localhost</span><br></pre></td></tr></table></figure></p>
 <h4 id="第二步，创建管理账户，如git">第二步，创建管理账户，如git</h4><p>在ubantu服务器上使用命令创建git账户和设置密码<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo useradd -m git&#10;$ sudo passwd git</span><br></pre></td></tr></table></figure></p>
 <h4 id="第三步，上传管理服务器的信任秘钥">第三步，上传管理服务器的信任秘钥</h4><p>首先需要创建秘钥，若电脑上~/.ssh/目录下已经有id_rsa.pub文件则不用考虑一下命令可忽略。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen</span><br></pre></td></tr></table></figure></p>
-<p>一直回车，会在~/.ssh/目录下生成两个文件：<br>id_rsa<br>私钥文件。是基于RSA算法创建。该私钥文件要妥善保管，不要泄。<br>id_rsa.pub<br>公钥文件。和id_rsa文件是一对儿，该文件作为公钥文件，可以公开。<br>然后将已经生成好的id_rsa.pub上传到ubantu服务器上/tmp目录以备使用<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-copy-id -i ~/.ssh/id_rsa.pub git@server:/tmp</span><br></pre></td></tr></table></figure></p>
+<p>一直回车，会在~/.ssh/目录下生成两个文件：<br>id_rsa<br>私钥文件。是基于RSA算法创建。该私钥文件要妥善保管，不要泄。<br>id_rsa.pub<br>公钥文件。和id_rsa文件是一对儿，该文件作为公钥文件，可以公开。<br>然后将已经生成好的id_rsa.pub上传到ubantu服务器上/tmp目录以备使用<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ scp  ~/.ssh/id_rsa.pub git@server:/tmp</span><br></pre></td></tr></table></figure></p>
 <h4 id="第四步，服务器安装git">第四步，服务器安装git</h4><p>在Ubantu服务器上安装git软件，使用命令<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure></p>
 <h3 id="Gitolite服务器部署方法">Gitolite服务器部署方法</h3><p>Gitolite官方github地址：<a href="https://github.com/sitaramc/gitolite" target="_blank" rel="external">https://github.com/sitaramc/gitolite</a><br>Gitolite官方安装方法：<a href="http://gitolite.com/gitolite/install.html" target="_blank" rel="external">http://gitolite.com/gitolite/install.html</a></p>
 <h4 id="第一步，克隆Gitolite源码">第一步，克隆Gitolite源码</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// &#20999;&#25442;&#21040;git&#29992;&#25143;&#10;su git&#10;// &#20999;&#25442;&#21040;git&#26681;&#30446;&#24405;&#10;cd&#10;// clone gitolite&#10;$ git clone https://github.com/sitaramc/gitolite.git</span><br></pre></td></tr></table></figure>
@@ -943,83 +1064,10 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-20151027" class="article article-type-post" itemscope itemprop="blogPost">
   
-    <div class="article-meta">
-      <a href="/2015/10/28/20151027/" class="article-date">
-  	<time datetime="2015-10-27T16:00:23.000Z" itemprop="datePublished">2015-10-28</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/28/20151027/">Blog编写计划开始</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><code>在经历5年工作时间之后，技术和管理遇到了一定的自身瓶颈，无法突破自有的技术能力和社交能力局限，希望通过努力掌握深入技术和管理技能，实现个人的提升，也希望借助不停撰写Blog记录技术分析和锻炼毅力。期待成功的号角！开工吧。</code></p>
-<p><em>Blog分为技术、管理、行业、随记等文章。</em></p>
-<h2 id="技术Blog">技术Blog</h2><p>对技术的把控分为以下部分</p>
-<ul>
-<li>新技术了解和分析</li>
-<li>已有技术的专研和优化</li>
-<li>系统掌握Android系统框架</li>
-<li>建立自有的技术群组</li>
-</ul>
-<h2 id="管理Blog">管理Blog</h2><p>对管理的把控分为以下部分</p>
-<ul>
-<li>PMP管理知识系统的学习</li>
-<li>对“团队”人员的了解和分析</li>
-<li>对“团队”的真正实现</li>
-</ul>
-<h2 id="IT行业">IT行业</h2><p>实时关注IT各大领域的引导方向，收集各种资源信息以及给予自身的一些见解。如：</p>
-<ul>
-<li>CSDN 专业的IT领域咨询网站</li>
-<li>Github 专业的开源代码库</li>
-<li>GitOsChina 丰富的开源框架和技术</li>
-<li>Weibo 各各领域的技术更新</li>
-</ul>
-<h2 id="随记">随记</h2><p>记录一些对技术和管理以及各方面的感悟和见解，不吝啬文字，不担心别人阅读。通过坚持书写和阅读提升语言组织能力和社交能力。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随记/">随记</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 </div>
       <footer id="footer">
