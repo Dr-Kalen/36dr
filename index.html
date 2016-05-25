@@ -190,6 +190,91 @@ var _hmt = _hmt || [];
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Context的全面理解" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/20/Context的全面理解/" class="article-date">
+  	<time datetime="2016-05-20T15:34:51.000Z" itemprop="datePublished">2016-05-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/20/Context的全面理解/">Context的全面理解</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-_什么是Context">1. 什么是Context</h3><p>在Android中Context分为ActivityContext和Application Context，Context是一个抽象类是所有上下文的基类。</p>
+<h3 id="2-_Activity_Context_和Application_Context_的区别">2. Activity Context 和Application Context 的区别</h3><ul>
+<li>application context生命周期比较长，伴随应用程序的存在而存在与activity的生命周期无关，Activity Context 则只能存活于Activity 生命周期内</li>
+<li>两者的使用范围和用于有部分差异，具体可以查看图示</li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20150104183450879" alt="image"><br>数字1：启动Activity在这些类中是可以的，但是需要创建一个新的task。一般情况不推荐。<br><br>数字2：在这些类中去layout inflate是合法的，但是会使用系统默认的主题样式，如果你自定义了某些样式可能不会被使用。<br><br>数字3：在receiver为null时允许，在4.2或以上的版本中，用于获取黏性广播的当前值。（可以无视）<br><br>注：ContentProvider、BroadcastReceiver之所以在上述表格中，是因为在其内部方法中都有一个context用于使用。</p>
+<h3 id="3-_Context可以做什么">3. Context可以做什么</h3><p>通过Context可以访问App全局信息的接口，例如：</p>
+<ul>
+<li>启动Activity、Service、发送广播</li>
+<li>访问APP中的资源和公开的方法</li>
+<li>获取assets中的资源</li>
+<li>对APK进行管线管理</li>
+</ul>
+<p>由以上来看，Context可以算是对APK无所不知，可以操作资源、代码以及其他信息。</p>
+<p>在创建Activity、Service、Application时都会自动创建Context，因此各自维护着自己的上下午，如果要统计一个app中的<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Context&#25968;&#37327;=Activity&#25968;+Service&#25968;+application</span><br></pre></td></tr></table></figure></p>
+<p>如何使用Context做这些操作呢，我们举例说明：</p>
+<ul>
+<li>执行APK中某类的方法<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Context c = createPackageContext(&#34;chroya.demo&#34;, Context.CONTEXT_INCLUDE_CODE | Context.CONTEXT_IGNORE_SECURITY);&#10;//&#36733;&#20837;&#36825;&#20010;&#31867;&#10;Class clazz = c.getClassLoader().loadClass(&#34;chroya.demo.Main&#34;);&#10;//&#26032;&#24314;&#19968;&#20010;&#23454;&#20363;&#10;Object owner = clazz.newInstance();&#10;//&#33719;&#21462;print&#26041;&#27861;&#65292;&#20256;&#20837;&#21442;&#25968;&#24182;&#25191;&#34892;&#10;Object obj = clazz.getMethod(&#34;print&#34;, String.class).invoke(owner, &#34;Hello&#8221;)&#65307;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>ok，这样，我们就调用了chroya.demo包的Main类的print方法，执行结果。其中需要对createPackageContext的参数说明<br><br>1、packageName  包名，要得到Context的包名<br><br>2、flags  标志位，有CONTEXT_INCLUDE_CODE和CONTEXT_IGNORE_SECURITY两个选项。CONTEXT_INCLUDE_CODE的意思是包括代码，也就是说可以执行这个包里面的代码。<br><br>CONTEXT_IGNORE_SECURITY的意思是忽略安全警告，如果不加这个标志的话，有些功能是用不了的，会出现安全警告。<br></p>
+<ul>
+<li>访问apk中的资源</li>
+</ul>
+<p>在ContextImpl中存在一个mResources变量，变量值的来源如下代码，它就是我们在通过Context.getResource()方法返回的结果，而          resource中存在一个ArrayMap用于存储所有的资源对象，因为一个app针对不同分辨率、不同方向等拥有多套资源，因此ArrayMap中会是多个对象，又ResourceManager使用的单例模式，因此每个Activity使用的是同一套资源但不一定是同一个资源对象。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mResources = mResourcesManager.getTopLevelResources(mPackageInfo.getResDir(),Display.DEFAULT_DISPLAY, null, compatInfo,activityToken);</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-_Context造成内存泄露">4. Context造成内存泄露</h3><p>通常造成Context内存泄露的原因是因为，系统gc执行时无法销毁Context，我们举例说明：<br></p>
+<p>我们都知道应用当屏幕旋转时会销毁当前Activity然后重新创建一个新的Activity，当我们activity中有图片加载时而我们又希望保持这个图片不重新加载，我们可能采用一个静态变量来保持这个Drawable，此时当屏幕旋转的时候由于Drawable与View有关联，Drawable保存了view的引用，而view保存了Activity引用，因此导致在旋转屏幕是无法将activity销毁，而造成内存泄露，程序崩溃。<br></p>
+<p>防止Context导致内存泄露，我们应该注意保存Activity中的对象与Activity是同一个生命周期，对已需要非常长的周期对象可以采用Application Context。<br></p>
+<h3 id="5-_Unable_to_add_window_—_token_null_is_not_for_an_application">5. Unable to add window — token null is not for an application</h3><p>此错误一般是在弹出框时出现异常如：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#12288;Dialog dialog = new Dialog(getApplicationContext());</span><br></pre></td></tr></table></figure></p>
+<p>　　或者<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dialog dialog = new Dialog(getApplication());</span><br></pre></td></tr></table></figure></p>
+<p>由于dialog是一个窗口，因此需要一个拥有窗口令牌的Token，而在packageInfo存在的情况下getApplication与getApplication返回的是同一个application context，application context并没有窗口令牌，因此会出现这种异常，正确的做法：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AlertDialog.Builder builder = new AlertDialog.Builder(this);</span><br></pre></td></tr></table></figure></p>
+<p>[1] 具体创建时代码：</p>
+<p>创建Application时：创建Application的时机在创建handleBindApplication()方法<br>//创建Application时同时创建的ContextIml实例<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> 2 private final void handleBindApplication(AppBindData data)&#123;&#10; 3     &#8230;&#10; 4     ///&#21019;&#24314;Application&#23545;&#35937;&#10; 5     Application app = data.info.makeApplication(data.restrictedBackupMode, null);&#10; 6     &#8230;&#10; 7 &#125;&#10; 8 public Application makeApplication(boolean forceDefaultAppClass, Instrumentation instrumentation) &#123;&#10; 9     &#8230;&#10;10     try &#123;&#10;11         java.lang.ClassLoader cl = getClassLoader();&#10;12         ContextImpl appContext = new ContextImpl();    //&#21019;&#24314;&#19968;&#20010;ContextImpl&#23545;&#35937;&#23454;&#20363;&#10;13         appContext.init(this, null, mActivityThread);  //&#21021;&#22987;&#21270;&#35813;ContextIml&#23454;&#20363;&#30340;&#30456;&#20851;&#23646;&#24615;&#10;14         ///&#26032;&#24314;&#19968;&#20010;Application&#23545;&#35937;&#10;15         app = mActivityThread.mInstrumentation.newApplication(&#10;16                 cl, appClass, appContext);&#10;17        appContext.setOuterContext(app);  //&#23558;&#35813;Application&#23454;&#20363;&#20256;&#36882;&#32473;&#35813;ContextImpl&#23454;&#20363;&#10;18     &#125;&#10;19     &#8230;&#10;20 &#125;</span><br></pre></td></tr></table></figure></p>
+<p>创建Activity时通过startActivity()或startActivityForResult()请求启动一个Activity时，如果系统检测需要新建一个Activity对象时回调handleLaunchActivity()方法。<br>//创建一个Activity实例时同时创建ContextIml实例<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private final void handleLaunchActivity(ActivityRecord r, Intent customIntent) &#123;&#10;    &#8230;&#10;    Activity a = performLaunchActivity(r, customIntent);  //&#21551;&#21160;&#19968;&#20010;Activity&#10;&#125;&#10;private final Activity performLaunchActivity(ActivityRecord r, Intent customIntent) &#123;&#10;    &#8230;&#10;    Activity activity = null;&#10;    try &#123;&#10;        //&#21019;&#24314;&#19968;&#20010;Activity&#23545;&#35937;&#23454;&#20363;&#10;        java.lang.ClassLoader cl = r.packageInfo.getClassLoader();&#10;        activity = mInstrumentation.newActivity(cl, component.getClassName(), r.intent);&#10;    &#125;&#10;    if (activity != null) &#123;&#10;        ContextImpl appContext = new ContextImpl();      //&#21019;&#24314;&#19968;&#20010;Activity&#23454;&#20363;&#10;        appContext.init(r.packageInfo, r.token, this);   //&#21021;&#22987;&#21270;&#35813;ContextIml&#23454;&#20363;&#30340;&#30456;&#20851;&#23646;&#24615;&#10;        appContext.setOuterContext(activity);            //&#23558;&#35813;Activity&#20449;&#24687;&#20256;&#36882;&#32473;&#35813;ContextImpl&#23454;&#20363;&#10;        &#8230;&#10;    &#125;&#10;    &#8230;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>创建Service时通过startService或者bindService时，如果系统检测到需要新创建一个Service实例，就会回调handleCreateService()方法<br> //创建一个Service实例时同时创建ContextIml实例<br> <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private final void handleCreateService(CreateServiceData data)&#123;&#10;    &#8230;&#10;    //&#21019;&#24314;&#19968;&#20010;Service&#23454;&#20363;&#10;    Service service = null;&#10;    try &#123;&#10;        java.lang.ClassLoader cl = packageInfo.getClassLoader();&#10;        service = (Service) cl.loadClass(data.info.name).newInstance();&#10;    &#125; catch (Exception e) &#123;&#10;    &#125;&#10;    &#8230;&#10;    ContextImpl context = new ContextImpl(); //&#21019;&#24314;&#19968;&#20010;ContextImpl&#23545;&#35937;&#23454;&#20363;&#10;    context.init(packageInfo, null, this);   //&#21021;&#22987;&#21270;&#35813;ContextIml&#23454;&#20363;&#30340;&#30456;&#20851;&#23646;&#24615;&#10;    //&#33719;&#24471;&#25105;&#20204;&#20043;&#21069;&#21019;&#24314;&#30340;Application&#23545;&#35937;&#20449;&#24687;&#10;    Application app = packageInfo.makeApplication(false, mInstrumentation);&#10;    //&#23558;&#35813;Service&#20449;&#24687;&#20256;&#36882;&#32473;&#35813;ContextImpl&#23454;&#20363;&#10;    context.setOuterContext(service);&#10;    &#8230;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-maven-install" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -933,118 +1018,6 @@ var _hmt = _hmt || [];
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/注解/">注解</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-20151031" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/31/20151031/" class="article-date">
-  	<time datetime="2015-10-31T03:37:26.000Z" itemprop="datePublished">2015-10-31</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/31/20151031/">Retrofit1.0基本使用和个人封装</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言">前言</h2><p>对比目前用的算是顺手的网络框架Volley，Okhttp，Retrofit,通常优先选择Retrofit，若Retrofit无法满足开发，则选择Okhttp。前两种已经完全可以实现大部分的网络开发需要，而且开发中使用极其简约大方。<br>我们详细讨论Retrofit的优点和缺点：<br><br>Retrofit由Square组织编写的网络框架，使用技术动态代理和反射，使用OO设计简约网络代码。目前最新版本是2.0版本，鉴于某些仍在使用1.x版本，因此我们对两个版本依依分析和使用。<br></p>
-<h2 id="Retrofit装备">Retrofit装备</h2><ul>
-<li>框架下载地址：<a href="https://github.com/square/retrofit" target="_blank" rel="external">https://github.com/square/retrofit</a></li>
-<li>官网使用说明文档：<a href="http://square.github.io/retrofit/#api-declaration" target="_blank" rel="external">http://square.github.io/retrofit/#api-declaration</a></li>
-<li>AndroidStudio 依赖导入<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &#39;com.squareup.retrofit:retrofit:2.0.0-beta2&#39;&#10;or&#10;compile &#39;com.squareup.retrofit:retrofit:1.9.0&#39;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="Retrofit2-0使用">Retrofit2.0使用</h2><p><a href="/2016/01/19/20160119/">请阅读Retrofit2.0</a></p>
-<h2 id="Retrofit1-9_使用">Retrofit1.9 使用</h2><p>Retrofit使用中最重要的几个类：RestAdapter, Interface，Convert,RequestInterceptor,CallbackRunnable。<br></p>
-<p>Retrofit使用步骤：<br></p>
-<ol>
-<li>定义接口，参数声明，URL通过Annotation指定</li>
-<li>设置RestAdapter相关的参数（endpoint，线程池，数据解析，特定网络访问组件，请求拦截器，请求前后AOP处理等）</li>
-<li>通过RestAdapter生成一个接口实现类（动态代理类）</li>
-<li>调用接口请求数据</li>
-</ol>
-<p>接口定义方式<br><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@GET</span>(<span class="string">"/group/&#123;id&#125;/profile"</span>)  </span><br><span class="line"><span class="function">List&lt;User&gt; <span class="title">userlist</span><span class="params">(@Path(<span class="string">"id"</span>)</span> <span class="keyword">int</span> id)</span>;</span><br></pre></td></tr></table></figure></p>
-<p>Retrofit支持@GET、@POST、@HEAD、@PUT、@DELETA、@PATCH，和参数相关的@Path、@Field、@Multipart，表示网络请求使用的请求方式。另外如何自定义Annotation<a href="/2015/11/01/20151101/">请阅读自定义Annotation</a>。<br></p>
-<p>生成RestAdapter动态代理类：<br><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">GsonBuilder builder = <span class="keyword">new</span> GsonBuilder();</span><br><span class="line">builder.setFieldNamingStrategy(<span class="keyword">new</span> AnnotateNaming());</span><br><span class="line">Gson gson = builder.create();</span><br><span class="line"></span><br><span class="line">RestAdapter restAdapter = <span class="keyword">new</span> RestAdapter.Builder()</span><br><span class="line">.setProfiler(<span class="keyword">new</span> DRProfiler())</span><br><span class="line">.setRequestInterceptor(interceptor)</span><br><span class="line">.setEndpoint(API_URL)</span><br><span class="line">.setConverter(<span class="keyword">new</span> GsonConverter(gson))</span><br><span class="line">.build();</span><br><span class="line"></span><br><span class="line">restAdapter.setLogLevel(RestAdapter.LogLevel.FULL);</span><br><span class="line">github = restAdapter.create(Interfaces.class);</span><br></pre></td></tr></table></figure></p>
-<p>通过RestAdapter将GitHubService自定义的的网络请求接口生成动态代理类，同时设置请求的参数：</p>
-<ul>
-<li>setEndPoint 设置网络请求服务器url，endpoint即时域名，若不设置其他则默认采用系统配置。</li>
-<li>设置converter，数据返回之后的解析器，默认采用GsonConverter解析，可以自己扩展XMLConvertert用于解析XML数据格式。</li>
-<li>设置Client，对于Android默认判断采用OKhttp，若无则在2.3以后使用HttpURLConnection，2.3以前则使用HttpClient。</li>
-<li>设置请求拦截器RequestInterceptor， 当我们需要同一处理所有请求中的头部信息等可用拦截方式。</li>
-<li>设置执行线程池， 默认使用后台线程Executor。</li>
-<li>设置数据返回线程池，默认单独提供主线程Executor线程，即返回数据处理可以直接更新UI数据。</li>
-<li>设置Profiler, 用于拦截数据请求之前和请求结束之后的回调，采用AOP代理设计。</li>
-</ul>
-<p>Convert自定义如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*定义Date解析方式*/</span></span><br><span class="line">Gson gson = <span class="keyword">new</span> GsonBuilder()</span><br><span class="line">.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)</span><br><span class="line">.registerTypeAdapter(Date.class, <span class="keyword">new</span> DateTypeAdapter())</span><br><span class="line">.create();</span><br><span class="line"></span><br><span class="line"><span class="comment">/*定义XML数据转换*/</span></span><br><span class="line">RestAdapter restAdapter = <span class="keyword">new</span> RestAdapter.Builder()</span><br><span class="line">.setEndpoint(<span class="string">"https://api.soundcloud.com"</span>)</span><br><span class="line">.setConverter(<span class="keyword">new</span> SimpleXMLConverter())</span><br><span class="line">.build();</span><br></pre></td></tr></table></figure></p>
-<p>数据返回处理：<br></p>
-<ul>
-<li>若是同步调用则直接返回数据，返回数据与请求属于同一线程，则不能直接更新UI因为不在UI主线程中。</li>
-<li>若非同步调用通过RequestInterceptorTape拦截，然后判断是Observe(RXJava)观察模式，则采用RxJava方式回调,默认不特别处理是Callback。若不了解RxJava请阅读<a href="http://www.baidu.com">RxJava原理与使用</a></li>
-<li>若是Callback则交由回调线程处理，采用UI主线程返回数据。<br>如：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 同步处理*/</span></span><br><span class="line"><span class="annotation">@GET</span>(<span class="string">"/users/list"</span>)</span><br><span class="line"><span class="function">Response <span class="title">userList</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">/*异步Callback回调*/</span></span><br><span class="line"><span class="annotation">@GET</span>(<span class="string">"/users/list"</span>)</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">userList</span><span class="params">(Callback&lt;Response&gt; cb)</span></span>;</span><br><span class="line"><span class="comment">/*异步RxJava回调*/</span></span><br><span class="line"><span class="annotation">@GET</span>(<span class="string">"/users/list"</span>)</span><br><span class="line"><span class="function">Observable&lt;Response&gt; <span class="title">userList</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="总结">总结</h2><p>Retrofit对输入和输出做了封装，通过TypedOutput向服务器发送数据，通过TypedInput读取服务器返回的数据。</p>
-<p>通过MultipartTypedOutput支持文件上传，读取服务器数据时，如果要求直接返回未解析的Response，Restonse会被转换为TypedByteArray，所以不能是大文件类的</p>
-<p>Retrofit支持不同的Log等级，当为LogLevel.Full时会把Request及Response的Body打印出来，所以如果包含文件就不行了。</p>
-<p>Retrofit默认使用GsonConverter，所以要想获取原始数据不要Retrofit解析，要么自定义Conveter，要么直接返回Response了，返回Response也比较麻烦</p>
-<p>总体来说Retrofit看起来很好用，不过要求服务端返回数据最好要规范，不然如果请求成功返回一种数据结构，请求失败返回另一种数据结构，不好用Converter解析，接口的定义也不好定义，除非都返回Response，或自定义Converter所有接口都返回String</p>
-<h3 id="Retrofit_1-9_个人封装">Retrofit 1.9 个人封装</h3><p>通常开发中客户端与服务器会定义一种通用的协议：<em>head+body</em> 形式，head包含数据的状态，提示文字等等。body的形式分为：字段，对象，数组。若是字段则创建一个对象定义head和body，若是对象则出现json中套有对象，如果强制按照Retrofit方式开发，则需要创建两个对象来获得数据,导致项目中出现量的不必要的对象。开发中出现只是字段的毕竟是少数情况，那么以此类推所有数据访问都需要创建两个对象，假若是<br>数组更加显得开发困难，因此个人针对Retrofit进行了访问数据返回的特别处理，采用泛型定义我们需要的对象实体。<br></p>
-<p>衍生三个实体类：<br></p>
-<ul>
-<li>BaseType 针对body为字段</li>
-<li>BaseObjectType 针对body为object形式</li>
-<li>BaseSequenceType 针对body为数组形式。</li>
-</ul>
-<p>BaseType定义<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>  <span class="class"><span class="keyword">class</span> <span class="title">BaseType</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String message;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">boolean</span> state;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>用于获取基本的数据结构，若除这些字段还有其他，则可以自己集成BaseType扩展。<br></p>
-<p>BaseObjectType定义</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseObjectType</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">BaseType</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> T data;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  T <span class="title">getObject</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>用于获取body为对象情况，当数据解析之后，通过getObject方式获得我们需要的实体对象。<br></p>
-<p>BaseSequenceType定义<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseSequenceType</span> &lt;<span class="title">T</span>&gt;  <span class="keyword">extends</span> <span class="title">BaseType</span></span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;T&gt; data;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;T&gt; <span class="title">getList</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data == <span class="keyword">null</span> ? <span class="number">0</span> : data.size();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>用于获取body为数组的情况，当数据返回之后通过getList方式获得实体数组。<br></p>
-<p>具体通过Retrofit和泛型如何访问数据，如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">NetworkRequest.getInstance().list(<span class="keyword">new</span> Callback&lt;BaseSequenceType&lt;Product&gt;&gt;() &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="annotation">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">success</span><span class="params">(BaseSequenceType&lt;Product&gt; productBaseSequenceType, Response response)</span> </span>&#123;</span><br><span class="line">                System.out.println(productBaseSequenceType.state + <span class="string">" "</span> + productBaseSequenceType.message);</span><br><span class="line">                List&lt;Product&gt; products = productBaseSequenceType.getList();</span><br><span class="line"></span><br><span class="line">                <span class="keyword">for</span> (Product product : products) &#123;</span><br><span class="line">                    System.out.println(product);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="annotation">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">failure</span><span class="params">(RetrofitError error)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure></p>
-<p>封装之后的Demo下载地址：<a href="https://github.com/Dr-Kalen/RetrofitDemo" target="_blank" rel="external">https://github.com/Dr-Kalen/RetrofitDemo</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络篇/">网络篇</a></li></ul>
 	</div>
 
       

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Context的全面理解 | Dr&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. 什么是Context在Android中Context分为ActivityContext和Application Context，Context是一个抽象类是所有上下文的基类。
+2. Activity Context 和Application Context 的区别
+application context生命周期比较长，伴随应用程序的存在而存在与activity的生命周期无关，Activity">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Context的全面理解">
+<meta property="og:url" content="http://www.baidu.com/2016/05/20/Context的全面理解/index.html">
+<meta property="og:site_name" content="Dr's Blog">
+<meta property="og:description" content="1. 什么是Context在Android中Context分为ActivityContext和Application Context，Context是一个抽象类是所有上下文的基类。
+2. Activity Context 和Application Context 的区别
+application context生命周期比较长，伴随应用程序的存在而存在与activity的生命周期无关，Activity">
+<meta property="og:image" content="http://img.blog.csdn.net/20150104183450879">
+<meta property="og:updated_time" content="2016-05-20T15:44:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Context的全面理解">
+<meta name="twitter:description" content="1. 什么是Context在Android中Context分为ActivityContext和Application Context，Context是一个抽象类是所有上下文的基类。
+2. Activity Context 和Application Context 的区别
+application context生命周期比较长，伴随应用程序的存在而存在与activity的生命周期无关，Activity">
+  
+    <link rel="alternative" href="/atom.xml" title="Dr&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+<script type="text/javascript">
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?c2f68ba683041cc0a1906ef230a88d42";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Kalen</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/categories">分类</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Dr-Kalen" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android-Studio/" style="font-size: 10px;">Android Studio</a> <a href="/tags/Parse/" style="font-size: 20px;">Parse</a> <a href="/tags/git-gitlite-gitosis-gitweb/" style="font-size: 10px;">git gitlite gitosis gitweb</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/反射利用/" style="font-size: 10px;">反射利用</a> <a href="/tags/技术文章/" style="font-size: 10px;">技术文章</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/网络篇/" style="font-size: 20px;">网络篇</a> <a href="/tags/随记/" style="font-size: 10px;">随记</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://hexo.io">Hexo</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.csdn.net">CSDN</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://android.jobbole.com">Jobbole</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Kalen</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/favicon.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Kalen</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/categories">分类</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Dr-Kalen" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-Context的全面理解" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/20/Context的全面理解/" class="article-date">
+  	<time datetime="2016-05-20T15:34:51.000Z" itemprop="datePublished">2016-05-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Context的全面理解
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-_什么是Context">1. 什么是Context</h3><p>在Android中Context分为ActivityContext和Application Context，Context是一个抽象类是所有上下文的基类。</p>
+<h3 id="2-_Activity_Context_和Application_Context_的区别">2. Activity Context 和Application Context 的区别</h3><ul>
+<li>application context生命周期比较长，伴随应用程序的存在而存在与activity的生命周期无关，Activity Context 则只能存活于Activity 生命周期内</li>
+<li>两者的使用范围和用于有部分差异，具体可以查看图示</li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20150104183450879" alt="image"><br>数字1：启动Activity在这些类中是可以的，但是需要创建一个新的task。一般情况不推荐。<br><br>数字2：在这些类中去layout inflate是合法的，但是会使用系统默认的主题样式，如果你自定义了某些样式可能不会被使用。<br><br>数字3：在receiver为null时允许，在4.2或以上的版本中，用于获取黏性广播的当前值。（可以无视）<br><br>注：ContentProvider、BroadcastReceiver之所以在上述表格中，是因为在其内部方法中都有一个context用于使用。</p>
+<h3 id="3-_Context可以做什么">3. Context可以做什么</h3><p>通过Context可以访问App全局信息的接口，例如：</p>
+<ul>
+<li>启动Activity、Service、发送广播</li>
+<li>访问APP中的资源和公开的方法</li>
+<li>获取assets中的资源</li>
+<li>对APK进行管线管理</li>
+</ul>
+<p>由以上来看，Context可以算是对APK无所不知，可以操作资源、代码以及其他信息。</p>
+<p>在创建Activity、Service、Application时都会自动创建Context，因此各自维护着自己的上下午，如果要统计一个app中的<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Context&#25968;&#37327;=Activity&#25968;+Service&#25968;+application</span><br></pre></td></tr></table></figure></p>
+<p>如何使用Context做这些操作呢，我们举例说明：</p>
+<ul>
+<li>执行APK中某类的方法<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Context c = createPackageContext(&#34;chroya.demo&#34;, Context.CONTEXT_INCLUDE_CODE | Context.CONTEXT_IGNORE_SECURITY);&#10;//&#36733;&#20837;&#36825;&#20010;&#31867;&#10;Class clazz = c.getClassLoader().loadClass(&#34;chroya.demo.Main&#34;);&#10;//&#26032;&#24314;&#19968;&#20010;&#23454;&#20363;&#10;Object owner = clazz.newInstance();&#10;//&#33719;&#21462;print&#26041;&#27861;&#65292;&#20256;&#20837;&#21442;&#25968;&#24182;&#25191;&#34892;&#10;Object obj = clazz.getMethod(&#34;print&#34;, String.class).invoke(owner, &#34;Hello&#8221;)&#65307;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>ok，这样，我们就调用了chroya.demo包的Main类的print方法，执行结果。其中需要对createPackageContext的参数说明<br><br>1、packageName  包名，要得到Context的包名<br><br>2、flags  标志位，有CONTEXT_INCLUDE_CODE和CONTEXT_IGNORE_SECURITY两个选项。CONTEXT_INCLUDE_CODE的意思是包括代码，也就是说可以执行这个包里面的代码。<br><br>CONTEXT_IGNORE_SECURITY的意思是忽略安全警告，如果不加这个标志的话，有些功能是用不了的，会出现安全警告。<br></p>
+<ul>
+<li>访问apk中的资源</li>
+</ul>
+<p>在ContextImpl中存在一个mResources变量，变量值的来源如下代码，它就是我们在通过Context.getResource()方法返回的结果，而          resource中存在一个ArrayMap用于存储所有的资源对象，因为一个app针对不同分辨率、不同方向等拥有多套资源，因此ArrayMap中会是多个对象，又ResourceManager使用的单例模式，因此每个Activity使用的是同一套资源但不一定是同一个资源对象。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mResources = mResourcesManager.getTopLevelResources(mPackageInfo.getResDir(),Display.DEFAULT_DISPLAY, null, compatInfo,activityToken);</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-_Context造成内存泄露">4. Context造成内存泄露</h3><p>通常造成Context内存泄露的原因是因为，系统gc执行时无法销毁Context，我们举例说明：<br></p>
+<p>我们都知道应用当屏幕旋转时会销毁当前Activity然后重新创建一个新的Activity，当我们activity中有图片加载时而我们又希望保持这个图片不重新加载，我们可能采用一个静态变量来保持这个Drawable，此时当屏幕旋转的时候由于Drawable与View有关联，Drawable保存了view的引用，而view保存了Activity引用，因此导致在旋转屏幕是无法将activity销毁，而造成内存泄露，程序崩溃。<br></p>
+<p>防止Context导致内存泄露，我们应该注意保存Activity中的对象与Activity是同一个生命周期，对已需要非常长的周期对象可以采用Application Context。<br></p>
+<h3 id="5-_Unable_to_add_window_—_token_null_is_not_for_an_application">5. Unable to add window — token null is not for an application</h3><p>此错误一般是在弹出框时出现异常如：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#12288;Dialog dialog = new Dialog(getApplicationContext());</span><br></pre></td></tr></table></figure></p>
+<p>　　或者<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dialog dialog = new Dialog(getApplication());</span><br></pre></td></tr></table></figure></p>
+<p>由于dialog是一个窗口，因此需要一个拥有窗口令牌的Token，而在packageInfo存在的情况下getApplication与getApplication返回的是同一个application context，application context并没有窗口令牌，因此会出现这种异常，正确的做法：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AlertDialog.Builder builder = new AlertDialog.Builder(this);</span><br></pre></td></tr></table></figure></p>
+<p>[1] 具体创建时代码：</p>
+<p>创建Application时：创建Application的时机在创建handleBindApplication()方法<br>//创建Application时同时创建的ContextIml实例<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> 2 private final void handleBindApplication(AppBindData data)&#123;&#10; 3     &#8230;&#10; 4     ///&#21019;&#24314;Application&#23545;&#35937;&#10; 5     Application app = data.info.makeApplication(data.restrictedBackupMode, null);&#10; 6     &#8230;&#10; 7 &#125;&#10; 8 public Application makeApplication(boolean forceDefaultAppClass, Instrumentation instrumentation) &#123;&#10; 9     &#8230;&#10;10     try &#123;&#10;11         java.lang.ClassLoader cl = getClassLoader();&#10;12         ContextImpl appContext = new ContextImpl();    //&#21019;&#24314;&#19968;&#20010;ContextImpl&#23545;&#35937;&#23454;&#20363;&#10;13         appContext.init(this, null, mActivityThread);  //&#21021;&#22987;&#21270;&#35813;ContextIml&#23454;&#20363;&#30340;&#30456;&#20851;&#23646;&#24615;&#10;14         ///&#26032;&#24314;&#19968;&#20010;Application&#23545;&#35937;&#10;15         app = mActivityThread.mInstrumentation.newApplication(&#10;16                 cl, appClass, appContext);&#10;17        appContext.setOuterContext(app);  //&#23558;&#35813;Application&#23454;&#20363;&#20256;&#36882;&#32473;&#35813;ContextImpl&#23454;&#20363;&#10;18     &#125;&#10;19     &#8230;&#10;20 &#125;</span><br></pre></td></tr></table></figure></p>
+<p>创建Activity时通过startActivity()或startActivityForResult()请求启动一个Activity时，如果系统检测需要新建一个Activity对象时回调handleLaunchActivity()方法。<br>//创建一个Activity实例时同时创建ContextIml实例<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private final void handleLaunchActivity(ActivityRecord r, Intent customIntent) &#123;&#10;    &#8230;&#10;    Activity a = performLaunchActivity(r, customIntent);  //&#21551;&#21160;&#19968;&#20010;Activity&#10;&#125;&#10;private final Activity performLaunchActivity(ActivityRecord r, Intent customIntent) &#123;&#10;    &#8230;&#10;    Activity activity = null;&#10;    try &#123;&#10;        //&#21019;&#24314;&#19968;&#20010;Activity&#23545;&#35937;&#23454;&#20363;&#10;        java.lang.ClassLoader cl = r.packageInfo.getClassLoader();&#10;        activity = mInstrumentation.newActivity(cl, component.getClassName(), r.intent);&#10;    &#125;&#10;    if (activity != null) &#123;&#10;        ContextImpl appContext = new ContextImpl();      //&#21019;&#24314;&#19968;&#20010;Activity&#23454;&#20363;&#10;        appContext.init(r.packageInfo, r.token, this);   //&#21021;&#22987;&#21270;&#35813;ContextIml&#23454;&#20363;&#30340;&#30456;&#20851;&#23646;&#24615;&#10;        appContext.setOuterContext(activity);            //&#23558;&#35813;Activity&#20449;&#24687;&#20256;&#36882;&#32473;&#35813;ContextImpl&#23454;&#20363;&#10;        &#8230;&#10;    &#125;&#10;    &#8230;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>创建Service时通过startService或者bindService时，如果系统检测到需要新创建一个Service实例，就会回调handleCreateService()方法<br> //创建一个Service实例时同时创建ContextIml实例<br> <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private final void handleCreateService(CreateServiceData data)&#123;&#10;    &#8230;&#10;    //&#21019;&#24314;&#19968;&#20010;Service&#23454;&#20363;&#10;    Service service = null;&#10;    try &#123;&#10;        java.lang.ClassLoader cl = packageInfo.getClassLoader();&#10;        service = (Service) cl.loadClass(data.info.name).newInstance();&#10;    &#125; catch (Exception e) &#123;&#10;    &#125;&#10;    &#8230;&#10;    ContextImpl context = new ContextImpl(); //&#21019;&#24314;&#19968;&#20010;ContextImpl&#23545;&#35937;&#23454;&#20363;&#10;    context.init(packageInfo, null, this);   //&#21021;&#22987;&#21270;&#35813;ContextIml&#23454;&#20363;&#30340;&#30456;&#20851;&#23646;&#24615;&#10;    //&#33719;&#24471;&#25105;&#20204;&#20043;&#21069;&#21019;&#24314;&#30340;Application&#23545;&#35937;&#20449;&#24687;&#10;    Application app = packageInfo.makeApplication(false, mInstrumentation);&#10;    //&#23558;&#35813;Service&#20449;&#24687;&#20256;&#36882;&#32473;&#35813;ContextImpl&#23454;&#20363;&#10;    context.setOuterContext(service);&#10;    &#8230;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/01/25/maven-install/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Linux环境下Maven服务器搭建</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Context的全面理解" data-title="Context的全面理解" data-url="http://www.baidu.com/2016/05/20/Context的全面理解/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Kalen
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
