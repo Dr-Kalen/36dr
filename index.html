@@ -207,7 +207,7 @@ var _hmt = _hmt || [];
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/30/“20160530接口测试-md”/">“20160530接口测试.md”</a>
+      <a class="article-title" href="/2016/05/30/“20160530接口测试-md”/">20160530接口测试</a>
     </h1>
   
 
@@ -217,16 +217,16 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="我的地址管理">我的地址管理</h3><ol>
-<li>添加地址<a href="http://101.201.222.160:8083/tc-api/api/member/receiver/add?memberId=1&amp;consignee=kalen&amp;areaId=118&amp;address=华阳&amp;phone=1870814095&amp;isDefault=0" target="_blank" rel="external">http://101.201.222.160:8083/tc-api/api/member/receiver/add?memberId=1&amp;consignee=kalen&amp;areaId=118&amp;address=华阳&amp;phone=1870814095&amp;isDefault=0</a><br>结果：接口正常<br>期望：判断手机号码是否格式正确</li>
+<li>添加地址<a href="http://101.201.222.160:8083/tc-api/api/member/receiver/add?memberId=1&amp;consignee=kalen&amp;areaId=118&amp;address=华阳&amp;phone=1870814095&amp;isDefault=0" target="_blank" rel="external">http://101.201.222.160:8083/tc-api/api/member/receiver/add?memberId=1&amp;consignee=kalen&amp;areaId=118&amp;address=华阳&amp;phone=1870814095&amp;isDefault=0</a><br>结果：接口正常<font color="#00FF00">期望：判断手机号码是否格式正确</font></li>
 <li>地址列表(<a href="http://101.201.222.160:8083/tc-api/api/member/receiver/list?memberId=1" target="_blank" rel="external">http://101.201.222.160:8083/tc-api/api/member/receiver/list?memberId=1</a>)<br>结果：接口正常</li>
-<li>编辑地址（<a href="http://101.201.222.160:8083/tc-api/api/member/receiver/edit?receiverId=6&amp;consignee=sytina&amp;areaId=118&amp;address=华阳&amp;phone=18708140959&amp;isDefault=1）" target="_blank" rel="external">http://101.201.222.160:8083/tc-api/api/member/receiver/edit?receiverId=6&amp;consignee=sytina&amp;areaId=118&amp;address=华阳&amp;phone=18708140959&amp;isDefault=1）</a><br>结果：正常接口通过，当传入receiverId为不存在的id则报错<br>期望：预防ID为不存在的情况</li>
+<li>编辑地址（<a href="http://101.201.222.160:8083/tc-api/api/member/receiver/edit?receiverId=6&amp;consignee=sytina&amp;areaId=118&amp;address=华阳&amp;phone=18708140959&amp;isDefault=1）" target="_blank" rel="external">http://101.201.222.160:8083/tc-api/api/member/receiver/edit?receiverId=6&amp;consignee=sytina&amp;areaId=118&amp;address=华阳&amp;phone=18708140959&amp;isDefault=1）</a><font color="#FF0000">结果：正常接口通过，当传入receiverId为不存在的id则报错</font><br><font color="#00FF00">期望：预防ID为不存在的情况</font></li>
 <li>删除地址（<a href="http://101.201.222.160:8083/tc-api//api/member/receiver/delete?receiverId=7）" target="_blank" rel="external">http://101.201.222.160:8083/tc-api//api/member/receiver/delete?receiverId=7）</a><br>结果：接口正常</li>
 <li>单独设置某地址为默认地址接口</li>
 </ol>
 <h3 id="我的积分">我的积分</h3><ol>
 <li>获取用户积分（<a href="http://101.201.222.160:8083/tc-api/api/member/profile/point?memberId=1）" target="_blank" rel="external">http://101.201.222.160:8083/tc-api/api/member/profile/point?memberId=1）</a><br>结果：接口正常</li>
-<li>获取用户余额（<a href="http://101.201.222.160:8083/tc-api/api/member/profile/balance?memberId=1）" target="_blank" rel="external">http://101.201.222.160:8083/tc-api/api/member/profile/balance?memberId=1）</a><br>结果：接口正常<br>期望：文档中的标注请调整，接口路径错误，请修改point为balance</li>
-<li>积分明细（<a href="http://101.201.222.160:8083/tc-api/api/member/integral/list?memberId=1）" target="_blank" rel="external">http://101.201.222.160:8083/tc-api/api/member/integral/list?memberId=1）</a><br>结果：接口访问正常，数据返回错误<br>期望：返回积分变化的时间，请注意UI</li>
+<li>获取用户余额（<a href="http://101.201.222.160:8083/tc-api/api/member/profile/balance?memberId=1）" target="_blank" rel="external">http://101.201.222.160:8083/tc-api/api/member/profile/balance?memberId=1）</a><br>结果：接口正常<font color="#00FF00">期望：文档中的标注请调整，接口路径错误，请修改point为balance</font></li>
+<li>积分明细（<a href="http://101.201.222.160:8083/tc-api/api/member/integral/list?memberId=1）" target="_blank" rel="external">http://101.201.222.160:8083/tc-api/api/member/integral/list?memberId=1）</a><br>结果：接口访问正常，数据返回错误<font color="#00FF00">期望：返回积分变化的时间，请注意UI</font></li>
 <li>缺少积分转赠接口</li>
 </ol>
 <h3 id="签到">签到</h3><ol>
