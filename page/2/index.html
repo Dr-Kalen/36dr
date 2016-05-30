@@ -190,6 +190,99 @@ var _hmt = _hmt || [];
 </nav>
       <div class="body-wrap">
   
+    <article id="post-20151101" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/01/20151101/" class="article-date">
+  	<time datetime="2015-11-01T14:33:51.000Z" itemprop="datePublished">2015-11-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/01/20151101/">注解(Annotations)使用和自定义</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言">前言</h2><p>Android默认提供Annotation框架同时网络也冲刺着各种Android Annotation框架，诸如此类框架很多，但是用过之后使用都比较复杂，同时还有一些无法避免的bug。如在Android开发时经常会遇到获得界面中的View使用方法findViewById特别是在Adapter中需要对所有使用的组件变量赋值，每次调用findViewById就显得多余的开发，若采用注解则会方便开发，精简代码的结构和提示代码阅读性，当然由于Annotation是反射机制设置变量值，则在性能上会相对于普通方式差，在此硬件比拼的时代，此性能几乎可以忽略。</p>
+<h2 id="原理和自定义">原理和自定义</h2><p>以前言中提到Android开发多次调用findViewById方法的困惑，我们通过自定义Annotation来解决此问题。如下：</p>
+<ol>
+<li><p>定义注解类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Target</span>(ElementType.FIELD)<span class="comment">//表示用在字段上  </span></span><br><span class="line"><span class="annotation">@Retention</span>(RetentionPolicy.RUNTIME)<span class="comment">//表示在生命周期是运行时  </span></span><br><span class="line"><span class="keyword">public</span> <span class="annotation">@interface</span> ViewInject &#123;  </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> 0</span>;  <span class="comment">//返回注解中的信息</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义一个BaseActivity作为需要注解的基类，用于实现注解的功能（反射注入数据）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseActivity</span> <span class="keyword">extends</span> <span class="title">FragmentActivity</span> </span>&#123;  </span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * get content view layout id</span><br><span class="line">     *  </span><br><span class="line">     * <span class="doctag">@return</span></span><br><span class="line">     */</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">getLayoutId</span><span class="params">()</span></span>;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);  </span><br><span class="line">        setContentView(getLayoutId());  </span><br><span class="line">        autoInjectAllField();  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 解析注解</span><br><span class="line">     */</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">autoInjectAllField</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">try</span> &#123;  </span><br><span class="line">            Class&lt;?&gt; clazz = <span class="keyword">this</span>.getClass();  </span><br><span class="line">            Field[] fields = clazz.getDeclaredFields();<span class="comment">//获得Activity中声明的字段  </span></span><br><span class="line">            <span class="keyword">for</span> (Field field : fields) &#123;  </span><br><span class="line">                <span class="comment">// 查看这个字段是否有我们自定义的注解类标志的  </span></span><br><span class="line">                <span class="keyword">if</span> (field.isAnnotationPresent(ViewInject.class)) &#123;  </span><br><span class="line">                    ViewInject inject = field.getAnnotation(ViewInject.class);  </span><br><span class="line">                    <span class="keyword">int</span> id = inject.value();  </span><br><span class="line">                    <span class="keyword">if</span> (id &gt; <span class="number">0</span>) &#123;  </span><br><span class="line">                        field.setAccessible(<span class="keyword">true</span>);  </span><br><span class="line">                        field.set(<span class="keyword">this</span>, <span class="keyword">this</span>.findViewById(id));<span class="comment">//给我们要找的字段设置值  </span></span><br><span class="line">                    &#125;  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;  </span><br><span class="line">            e.printStackTrace();  </span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalArgumentException e) &#123;  </span><br><span class="line">            e.printStackTrace();  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注解使用</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestActivity</span> <span class="keyword">extends</span> <span class="title">BaseActivity</span> </span>&#123;  </span><br><span class="line"></span><br><span class="line">    <span class="annotation">@ViewInject</span>(R.id.claim_statement)  </span><br><span class="line">    <span class="keyword">private</span> WebView mWebView;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getLayoutId</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub  </span></span><br><span class="line">        <span class="keyword">return</span> R.layout.activity_claim;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="详细说明">详细说明</h2><p>系统中方法经常会使用@Override和@Deprecated注解，我们看看系统注解如何定义：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="annotation">@Retention</span>(RetentionPolicy.SOURCE)</span><br><span class="line"><span class="keyword">public</span> <span class="annotation">@interface</span> Override &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="annotation">@Documented</span></span><br><span class="line"><span class="annotation">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="annotation">@Target</span>(value=&#123;CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, PARAMETER, TYPE&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="annotation">@interface</span> Deprecated &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们发现这两个注解用到了其他注解@Target,@Retention,@Documented；这些注解称之为元注解。<br></p>
+<ol>
+<li>@Target用于标明注解用于的地方，它的值是一个枚举值：<ul>
+<li>CONSTRUCTOR:用于描述构造器</li>
+<li>FIELD:用于描述域</li>
+<li>LOCAL_VARIABLE:用于描述局部变量</li>
+<li>METHOD:用于描述方法</li>
+<li>PACKAGE:用于描述包</li>
+<li>PARAMETER:用于描述参数</li>
+<li>TYPE:用于描述类、接口(包括注解类型) 或enum声明</li>
+</ul>
+</li>
+<li><p>@Retention用于描述注解的生命周期即在什么情况有效，它的值：</p>
+<ul>
+<li>SOURCE:在源文件中有效（即源文件保留编译时忽略）</li>
+<li>CLASS:在class文件中有效（即class保留JVM忽略）</li>
+<li>RUNTIME:在运行时有效（即运行时保留）</li>
+</ul>
+</li>
+<li><p>@Documented表明这个注解应该被javadoc工具记录。</p>
+</li>
+</ol>
+<p>因此当我们定义的注解中：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Target</span>(ElementType.FIELD)<span class="comment">//表示用在字段上  </span></span><br><span class="line"><span class="annotation">@Retention</span>(RetentionPolicy.RUNTIME)<span class="comment">//表示在生命周期是运行时  </span></span><br><span class="line"><span class="keyword">public</span> <span class="annotation">@interface</span> ViewInject &#123;  </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> 0</span>;  <span class="comment">//返回注解中的信息</span></span><br><span class="line"></span><br><span class="line">    <span class="function">String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> "<span class="keyword">default</span> name"</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>就很好解释了，ViewInject注解是用于变量并且运行时有效，用于获得注解中的内容，内容信息为int并且默认为0.<br></p>
+<p>注解类中方法value()表示获取注解中默认文字比如@ViewInject(R.id.name)获取的R.id.name的值，如果是name或则其他方法，则表示需要在注解中使用属性才能获取。及获取@ViewInject(name=”name”)中的name属性值。<br><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#30001;&#27492;&#65292;&#25105;&#20204;&#21487;&#20197;&#26681;&#25454;&#33258;&#24049;&#21916;&#22909;&#65292;&#33258;&#24049;&#30340;&#21151;&#33021;&#38656;&#35201;&#65292;&#33258;&#23450;&#20041;&#21512;&#36866;&#39033;&#30446;&#30340;&#27880;&#35299;&#21644;&#27880;&#35299;&#30340;&#35299;&#26512;&#26041;&#24335;&#12290;&#10;Android &#27880;&#35299;&#35831;&#23398;&#20064;&#8220;Android Annotation&#8221;&#26694;&#26550;&#12290;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/注解/">注解</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-20151031" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
