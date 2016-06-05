@@ -3,33 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Android Studio插件 | Dr&#39;s Blog</title>
+  <title>Linux环境下Maven服务器搭建 | Dr&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="插件
-Android File Grouping Plugin v1.1
-
-功能：帮助Android进一步精简代码结果，一个项目中layout文件的布局文件少则10个，多则百个当查找某文件除了采用搜索工具更不无法查询，直观简直惨不忍睹的乱，Grouping Plugin 插件则是针对layout进行分类管理，可以想value中一样建立多个folder来管理layout文件。安装方法：
-
-下载Gro">
+  <meta name="description" content="Maven基本准备Maven服务器下载官网地址：http://download.sonatype.com/nexus/oss/nexus-2.11.1-01-bundle.zip，通过此地址下载maven.1$ unzip nexus-2.11.1-01-bundle.zip
+然后解压文件会得到nexus-2.6.0-05和sonatype-work。
+Maven安装和启动进入Maven解压nex">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android Studio插件">
-<meta property="og:url" content="http://www.baidu.com/2015/11/02/20151102-1/index.html">
+<meta property="og:title" content="Linux环境下Maven服务器搭建">
+<meta property="og:url" content="http://www.baidu.com/2016/01/25/Maven服务器搭建/index.html">
 <meta property="og:site_name" content="Dr's Blog">
-<meta property="og:description" content="插件
-Android File Grouping Plugin v1.1
-
-功能：帮助Android进一步精简代码结果，一个项目中layout文件的布局文件少则10个，多则百个当查找某文件除了采用搜索工具更不无法查询，直观简直惨不忍睹的乱，Grouping Plugin 插件则是针对layout进行分类管理，可以想value中一样建立多个folder来管理layout文件。安装方法：
-
-下载Gro">
-<meta property="og:updated_time" content="2015-11-02T11:14:49.000Z">
+<meta property="og:description" content="Maven基本准备Maven服务器下载官网地址：http://download.sonatype.com/nexus/oss/nexus-2.11.1-01-bundle.zip，通过此地址下载maven.1$ unzip nexus-2.11.1-01-bundle.zip
+然后解压文件会得到nexus-2.6.0-05和sonatype-work。
+Maven安装和启动进入Maven解压nex">
+<meta property="og:updated_time" content="2016-01-25T09:49:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android Studio插件">
-<meta name="twitter:description" content="插件
-Android File Grouping Plugin v1.1
-
-功能：帮助Android进一步精简代码结果，一个项目中layout文件的布局文件少则10个，多则百个当查找某文件除了采用搜索工具更不无法查询，直观简直惨不忍睹的乱，Grouping Plugin 插件则是针对layout进行分类管理，可以想value中一样建立多个folder来管理layout文件。安装方法：
-
-下载Gro">
+<meta name="twitter:title" content="Linux环境下Maven服务器搭建">
+<meta name="twitter:description" content="Maven基本准备Maven服务器下载官网地址：http://download.sonatype.com/nexus/oss/nexus-2.11.1-01-bundle.zip，通过此地址下载maven.1$ unzip nexus-2.11.1-01-bundle.zip
+然后解压文件会得到nexus-2.6.0-05和sonatype-work。
+Maven安装和启动进入Maven解压nex">
   
     <link rel="alternative" href="/atom.xml" title="Dr&#39;s Blog" type="application/atom+xml">
   
@@ -204,11 +195,11 @@ var _hmt = _hmt || [];
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-20151102-1" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Maven服务器搭建" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/11/02/20151102-1/" class="article-date">
-  	<time datetime="2015-11-02T04:23:05.000Z" itemprop="datePublished">2015-11-02</time>
+      <a href="/2016/01/25/Maven服务器搭建/" class="article-date">
+  	<time datetime="2016-01-25T08:48:25.000Z" itemprop="datePublished">2016-01-25</time>
 </a>
     </div>
   
@@ -221,7 +212,7 @@ var _hmt = _hmt || [];
         
   
     <h1 class="article-title" itemprop="name">
-      Android Studio插件
+      Linux环境下Maven服务器搭建
     </h1>
   
 
@@ -230,7 +221,7 @@ var _hmt = _hmt || [];
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-Studio/">Android Studio</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
 	</div>
 
         
@@ -241,15 +232,17 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="插件">插件</h2><ol>
-<li><a href="https://github.com/dmytrodanylyk/folding-plugin" target="_blank" rel="external">Android File Grouping Plugin v1.1</a></li>
-</ol>
-<p>功能：帮助Android进一步精简代码结果，一个项目中layout文件的布局文件少则10个，多则百个当查找某文件除了采用搜索工具更不无法查询，直观简直惨不忍睹的乱，<em>Grouping Plugin</em> 插件则是针对layout进行分类管理，可以想value中一样建立多个folder来管理layout文件。<br><br>安装方法：</p>
-<ul>
-<li>下载<em>Grouping Plugin</em>插件</li>
-<li>Open As <em>Settings</em>, and select <em>Plugins</em>。</li>
-<li>Click <em>Install from disk</em> and choose Android File <em>Grouping.zip</em></li>
-<li>通过layout文件夹右键建立新的Group文件夹。</li>
+        <h4 id="Maven基本准备">Maven基本准备</h4><h3 id="Maven服务器下载">Maven服务器下载</h3><p>官网地址：<a href="http://download.sonatype.com/nexus/oss/nexus-2.11.1-01-bundle.zip" target="_blank" rel="external">http://download.sonatype.com/nexus/oss/nexus-2.11.1-01-bundle.zip</a>，通过此地址下载maven.<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ unzip nexus-2.11.1-01-bundle.zip</span><br></pre></td></tr></table></figure></p>
+<p>然后解压文件会得到nexus-2.6.0-05和sonatype-work。</p>
+<h3 id="Maven安装和启动">Maven安装和启动</h3><p>进入Maven解压nexus目录，然后执行：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nexus-2.11.1-01/bin/nexus start</span><br></pre></td></tr></table></figure></p>
+<p>在安装时可能会遇到错误，比如环境变量未配置时请配置一下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RUN_AS_USER=root   &#10;NEXUS_HOME=$HOME/nexus-2.0.3/</span><br></pre></td></tr></table></figure></p>
+<p>启动成功之后，通过<a href="http://ip:8081/nexus/index.html" target="_blank" rel="external">http://ip:8081/nexus/index.html</a>访问maven仓库，默认管理员账户和密码：admin/admin123</p>
+<h3 id="修改Maven工作目录sonatype-work位置">修改Maven工作目录sonatype-work位置</h3><p>默认Maven安装之后会生成sonatype-work目录，此目录将作为默认的jar文件放置处。为了防止后期不停的累加导致Maven仓库变大同时也不利于后期对Maven的管理。<br>–待定–</p>
+<h3 id="修改Maven仓库访问的端口">修改Maven仓库访问的端口</h3><p>首先查看Maven是否正在运行<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ps -ef |grep nexus</span><br></pre></td></tr></table></figure></p>
+<p>然后通过kill杀掉进程，然后修改maven配置文件<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd <span class="variable">$HOME</span>/nexus-<span class="number">2.11</span>.<span class="number">1</span>-<span class="number">01</span>/conf</span><br><span class="line">$ vi nexus.properties</span><br></pre></td></tr></table></figure></p>
+<p>把application-port=8081 修改为application-port=8981<br><br>然后访问：<a href="http://IP:8981/nexus/index.html#welcome" target="_blank" rel="external">http://IP:8981/nexus/index.html#welcome</a></p>
+<h3 id="仓库添加">仓库添加</h3><ul>
+<li><a href="http://www.open-open.com/lib/view/open1435109824278.html" target="_blank" rel="external">个人发布库流程</a></li>
 </ul>
 
       
@@ -260,18 +253,18 @@ var _hmt = _hmt || [];
     
 <nav id="article-nav">
   
-    <a href="/2015/11/02/20151102-2/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/05/20/Context的全面理解/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          Gson高级使用和GsonBuilder设置
+          Context的全面理解
         
       </div>
     </a>
   
   
-    <a href="/2015/11/02/20151102/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">RxJava原理和使用</div>
+    <a href="/2016/01/19/Simple XML解析/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Simple XML解析（极其方便的XML解析）</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -300,7 +293,7 @@ var _hmt = _hmt || [];
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="20151102-1" data-title="Android Studio插件" data-url="http://www.baidu.com/2015/11/02/20151102-1/"></div>
+	<div class="ds-thread" data-thread-key="Maven服务器搭建" data-title="Linux环境下Maven服务器搭建" data-url="http://www.baidu.com/2016/01/25/Maven服务器搭建/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
