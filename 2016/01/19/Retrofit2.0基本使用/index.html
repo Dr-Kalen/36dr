@@ -1,408 +1,74 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  <title>Retrofit2.0基本使用和个人封装 | Dr&#39;s Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言对比目前用的算是顺手的网络框架Volley，Okhttp，Retrofit,通常优先选择Retrofit，若Retrofit无法满足开发，则选择Okhttp。前两种已经完全可以实现大部分的网络开发需要，而且开发中使用极其简约大方。我们详细讨论Retrofit的优点和缺点：Retrofit由Square组织编写的网络框架，使用技术动态代理和反射，使用OO设计简约网络代码。
-Retrofit装备">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Retrofit2.0基本使用和个人封装">
-<meta property="og:url" content="http://www.baidu.com/2016/01/19/Retrofit2.0基本使用/index.html">
-<meta property="og:site_name" content="Dr's Blog">
-<meta property="og:description" content="前言对比目前用的算是顺手的网络框架Volley，Okhttp，Retrofit,通常优先选择Retrofit，若Retrofit无法满足开发，则选择Okhttp。前两种已经完全可以实现大部分的网络开发需要，而且开发中使用极其简约大方。我们详细讨论Retrofit的优点和缺点：Retrofit由Square组织编写的网络框架，使用技术动态代理和反射，使用OO设计简约网络代码。
-Retrofit装备">
-<meta property="og:updated_time" content="2016-01-19T13:53:00.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Retrofit2.0基本使用和个人封装">
-<meta name="twitter:description" content="前言对比目前用的算是顺手的网络框架Volley，Okhttp，Retrofit,通常优先选择Retrofit，若Retrofit无法满足开发，则选择Okhttp。前两种已经完全可以实现大部分的网络开发需要，而且开发中使用极其简约大方。我们详细讨论Retrofit的优点和缺点：Retrofit由Square组织编写的网络框架，使用技术动态代理和反射，使用OO设计简约网络代码。
-Retrofit装备">
-  
-    <link rel="alternative" href="/atom.xml" title="Dr&#39;s Blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
-  
-<script type="text/javascript">
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?c2f68ba683041cc0a1906ef230a88d42";
-  var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-
-
-</head>
-
-<body>
-  <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
-			
-			<img lazy-src="/favicon.png" class="js-avatar">
-			
-		</a>
-
-		<hgroup>
-		  <h1 class="header-author"><a href="/">Kalen</a></h1>
-		</hgroup>
-
-		
-
-		
-			<div class="switch-btn">
-				<div class="icon">
-					<div class="icon-ctn">
-						<div class="icon-wrap icon-house" data-idx="0">
-							<div class="birdhouse"></div>
-							<div class="birdhouse_holes"></div>
-						</div>
-						<div class="icon-wrap icon-ribbon hide" data-idx="1">
-							<div class="ribbon"></div>
-						</div>
-						
-						<div class="icon-wrap icon-link hide" data-idx="2">
-							<div class="loopback_l"></div>
-							<div class="loopback_r"></div>
-						</div>
-						
-						
-					</div>
-					
-				</div>
-				<div class="tips-box hide">
-					<div class="tips-arrow"></div>
-					<ul class="tips-inner">
-						<li>菜单</li>
-						<li>标签</li>
-						
-						<li>友情链接</li>
-						
-						
-					</ul>
-				</div>
-			</div>
-		
-
-		<div class="switch-area">
-			<div class="switch-wrap">
-				<section class="switch-part switch-part1">
-					<nav class="header-menu">
-						<ul>
-						
-							<li><a href="/">主页</a></li>
-				        
-							<li><a href="/archives">所有文章</a></li>
-				        
-							<li><a href="/categories">分类</a></li>
-				        
-						</ul>
-					</nav>
-					<nav class="header-nav">
-						<div class="social">
-							
-								<a class="github" target="_blank" href="https://github.com/Dr-Kalen" title="github">github</a>
-					        
-								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
-					        
-								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
-					        
-								<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
-					        
-						</div>
-					</nav>
-				</section>
-				
-				
-				<section class="switch-part switch-part2">
-					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android-Studio/" style="font-size: 10px;">Android Studio</a> <a href="/tags/Parse/" style="font-size: 20px;">Parse</a> <a href="/tags/git-gitlite-gitosis-gitweb/" style="font-size: 10px;">git gitlite gitosis gitweb</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/反射利用/" style="font-size: 10px;">反射利用</a> <a href="/tags/技术文章/" style="font-size: 10px;">技术文章</a> <a href="/tags/注解/" style="font-size: 10px;">注解</a> <a href="/tags/网络篇/" style="font-size: 20px;">网络篇</a> <a href="/tags/随记/" style="font-size: 10px;">随记</a>
-					</div>
-				</section>
-				
-				
-				
-				<section class="switch-part switch-part3">
-					<div id="js-friends">
-					
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://hexo.io">Hexo</a>
-			        
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.csdn.net">CSDN</a>
-			        
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://android.jobbole.com">Jobbole</a>
-			        
-			        </div>
-				</section>
-				
-
-				
-			</div>
-		</div>
-	</header>				
-</div>
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"></div>
-  		<h1 class="header-author js-mobile-header hide">Kalen</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-				<img lazy-src="/favicon.png" class="js-avatar">
-			</div>
-			<hgroup>
-			  <h1 class="header-author">Kalen</h1>
-			</hgroup>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/">主页</a></li>
-		        
-					<li><a href="/archives">所有文章</a></li>
-		        
-					<li><a href="/categories">分类</a></li>
-		        
-		        <div class="clearfix"></div>
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-						<a class="github" target="_blank" href="https://github.com/Dr-Kalen" title="github">github</a>
-			        
-						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
-			        
-						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
-			        
-						<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
-			        
-				</div>
-			</nav>
-		</header>				
-	</div>
-</nav>
-      <div class="body-wrap"><article id="post-Retrofit2.0基本使用" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/01/19/Retrofit2.0基本使用/" class="article-date">
-  	<time datetime="2016-01-19T13:37:26.000Z" itemprop="datePublished">2016-01-19</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Retrofit2.0基本使用和个人封装
-    </h1>
-  
-
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络篇/">网络篇</a></li></ul>
-	</div>
-
-        
-
-        <div class="clearfix"></div>
-      </div>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言">前言</h2><p>对比目前用的算是顺手的网络框架Volley，Okhttp，Retrofit,通常优先选择Retrofit，若Retrofit无法满足开发，则选择Okhttp。前两种已经完全可以实现大部分的网络开发需要，而且开发中使用极其简约大方。<br>我们详细讨论Retrofit的优点和缺点：<br><br>Retrofit由Square组织编写的网络框架，使用技术动态代理和反射，使用OO设计简约网络代码。<br></p>
-<h2 id="Retrofit装备">Retrofit装备</h2><ul>
-<li>框架下载地址：<a href="https://github.com/square/retrofit" target="_blank" rel="external">https://github.com/square/retrofit</a></li>
-<li>官网使用说明文档：<a href="http://square.github.io/retrofit/#api-declaration" target="_blank" rel="external">http://square.github.io/retrofit/#api-declaration</a></li>
-<li>AndroidStudio 依赖导入<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &#39;com.squareup.retrofit:retrofit:2.0.0-beta2&#39;&#10;or&#10;compile &#39;com.squareup.retrofit:retrofit:1.9.0&#39;</span><br></pre></td></tr></table></figure>
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Retrofit2.0基本使用和个人封装 | Dr's Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/4.1.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Retrofit2.0基本使用和个人封装</h1><a id="logo" href="/.">Dr's Blog</a><p class="description"></p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Retrofit2.0基本使用和个人封装</h1><div class="post-meta">Jan 19, 2016<script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><div class="post-content"><h2 id="&#x524D;&#x8A00;">&#x524D;&#x8A00;</h2><p>&#x5BF9;&#x6BD4;&#x76EE;&#x524D;&#x7528;&#x7684;&#x7B97;&#x662F;&#x987A;&#x624B;&#x7684;&#x7F51;&#x7EDC;&#x6846;&#x67B6;Volley&#xFF0C;Okhttp&#xFF0C;Retrofit,&#x901A;&#x5E38;&#x4F18;&#x5148;&#x9009;&#x62E9;Retrofit&#xFF0C;&#x82E5;Retrofit&#x65E0;&#x6CD5;&#x6EE1;&#x8DB3;&#x5F00;&#x53D1;&#xFF0C;&#x5219;&#x9009;&#x62E9;Okhttp&#x3002;&#x524D;&#x4E24;&#x79CD;&#x5DF2;&#x7ECF;&#x5B8C;&#x5168;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x5927;&#x90E8;&#x5206;&#x7684;&#x7F51;&#x7EDC;&#x5F00;&#x53D1;&#x9700;&#x8981;&#xFF0C;&#x800C;&#x4E14;&#x5F00;&#x53D1;&#x4E2D;&#x4F7F;&#x7528;&#x6781;&#x5176;&#x7B80;&#x7EA6;&#x5927;&#x65B9;&#x3002;<br>&#x6211;&#x4EEC;&#x8BE6;&#x7EC6;&#x8BA8;&#x8BBA;Retrofit&#x7684;&#x4F18;&#x70B9;&#x548C;&#x7F3A;&#x70B9;&#xFF1A;<br><br>Retrofit&#x7531;Square&#x7EC4;&#x7EC7;&#x7F16;&#x5199;&#x7684;&#x7F51;&#x7EDC;&#x6846;&#x67B6;&#xFF0C;&#x4F7F;&#x7528;&#x6280;&#x672F;&#x52A8;&#x6001;&#x4EE3;&#x7406;&#x548C;&#x53CD;&#x5C04;&#xFF0C;&#x4F7F;&#x7528;OO&#x8BBE;&#x8BA1;&#x7B80;&#x7EA6;&#x7F51;&#x7EDC;&#x4EE3;&#x7801;&#x3002;<br><br><a id="more"></a></p>
+<h2 id="Retrofit&#x88C5;&#x5907;">Retrofit&#x88C5;&#x5907;</h2><ul>
+<li>&#x6846;&#x67B6;&#x4E0B;&#x8F7D;&#x5730;&#x5740;&#xFF1A;<a href="https://github.com/square/retrofit" target="_blank" rel="external">https://github.com/square/retrofit</a></li>
+<li>&#x5B98;&#x7F51;&#x4F7F;&#x7528;&#x8BF4;&#x660E;&#x6587;&#x6863;&#xFF1A;<a href="http://square.github.io/retrofit/#api-declaration" target="_blank" rel="external">http://square.github.io/retrofit/#api-declaration</a></li>
+<li>AndroidStudio &#x4F9D;&#x8D56;&#x5BFC;&#x5165;<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &apos;com.squareup.retrofit:retrofit:2.0.0-beta2&apos;
+or
+compile &apos;com.squareup.retrofit:retrofit:1.9.0&apos;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="Retrofit1-9使用">Retrofit1.9使用</h2><p><a href="/2015/10/31/20151031/">请阅读Retrofit1.9</a></p>
-<h2 id="Retrofit2-0_使用">Retrofit2.0 使用</h2><p>Retrofit使用中最重要的几个类：Retrofit, Interface，Call<br></p>
-<p>Retrofit使用步骤：<br></p>
+<h2 id="Retrofit1-9&#x4F7F;&#x7528;">Retrofit1.9&#x4F7F;&#x7528;</h2><p><a href="/2015/10/31/20151031/">&#x8BF7;&#x9605;&#x8BFB;Retrofit1.9</a></p>
+<h2 id="Retrofit2-0_&#x4F7F;&#x7528;">Retrofit2.0 &#x4F7F;&#x7528;</h2><p>Retrofit&#x4F7F;&#x7528;&#x4E2D;&#x6700;&#x91CD;&#x8981;&#x7684;&#x51E0;&#x4E2A;&#x7C7B;&#xFF1A;Retrofit, Interface&#xFF0C;Call<br></p>
+<p>Retrofit&#x4F7F;&#x7528;&#x6B65;&#x9AA4;&#xFF1A;<br></p>
 <ol>
-<li>定义接口，参数声明，URL通过Annotation指定</li>
-<li>设置Retrofit相关的参数（baseUrl，数据解析）</li>
-<li>通过Retrofit.create生成一个接口实现类（动态代理类）</li>
-<li>调用接口请求数据</li>
+<li>&#x5B9A;&#x4E49;&#x63A5;&#x53E3;&#xFF0C;&#x53C2;&#x6570;&#x58F0;&#x660E;&#xFF0C;URL&#x901A;&#x8FC7;Annotation&#x6307;&#x5B9A;</li>
+<li>&#x8BBE;&#x7F6E;Retrofit&#x76F8;&#x5173;&#x7684;&#x53C2;&#x6570;&#xFF08;baseUrl&#xFF0C;&#x6570;&#x636E;&#x89E3;&#x6790;&#xFF09;</li>
+<li>&#x901A;&#x8FC7;Retrofit.create&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#x5B9E;&#x73B0;&#x7C7B;&#xFF08;&#x52A8;&#x6001;&#x4EE3;&#x7406;&#x7C7B;&#xFF09;</li>
+<li>&#x8C03;&#x7528;&#x63A5;&#x53E3;&#x8BF7;&#x6C42;&#x6570;&#x636E;</li>
 </ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注： <span class="number">2.0</span>强制要求接口方法返回参数不能为<span class="keyword">void</span>，同时接口方法中没有Callback参数</span><br></pre></td></tr></table></figure>
-<p>接口定义方式<br><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@GET</span>(<span class="string">"/group/&#123;id&#125;/profile"</span>)  </span><br><span class="line"><span class="function">List&lt;User&gt; <span class="title">userlist</span><span class="params">(@Path(<span class="string">"id"</span>)</span> <span class="keyword">int</span> id)</span>;</span><br></pre></td></tr></table></figure></p>
-<p>Retrofit支持@GET、@POST、@HEAD、@PUT、@DELETA、@PATCH，和参数相关的@Path、@Field、@Multipart，表示网络请求使用的请求方式。另外如何自定义Annotation<a href="/2015/11/01/20151101/">请阅读自定义Annotation</a>。<br></p>
-<p>生成RestAdapter动态代理类：<br><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GsonBuilder builder = <span class="keyword">new</span> GsonBuilder();</span><br><span class="line">builder.setFieldNamingStrategy(<span class="keyword">new</span> AnnotateNaming());</span><br><span class="line">Gson gson = builder.create();</span><br><span class="line"></span><br><span class="line">Retrofit retrofit = <span class="keyword">new</span> Retrofit.Builder()</span><br><span class="line">                   .baseUrl(API_URL)</span><br><span class="line">                   .addConverterFactory(GsonConverterFactory.create(gson))</span><br><span class="line">                   .build();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">github = retrofit.create(Interfaces.class);</span><br></pre></td></tr></table></figure></p>
-<p>通过Retrofit将Interfaces自定义的的网络请求接口生成动态代理类，同时设置请求的参数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x6CE8;&#xFF1A; <span class="number">2.0</span>&#x5F3A;&#x5236;&#x8981;&#x6C42;&#x63A5;&#x53E3;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x53C2;&#x6570;&#x4E0D;&#x80FD;&#x4E3A;<span class="keyword">void</span>&#xFF0C;&#x540C;&#x65F6;&#x63A5;&#x53E3;&#x65B9;&#x6CD5;&#x4E2D;&#x6CA1;&#x6709;Callback&#x53C2;&#x6570;</span><br></pre></td></tr></table></figure>
+<p>&#x63A5;&#x53E3;&#x5B9A;&#x4E49;&#x65B9;&#x5F0F;<br><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@GET</span>(<span class="string">&quot;/group/{id}/profile&quot;</span>)  </span><br><span class="line"><span class="function">List&lt;User&gt; <span class="title">userlist</span><span class="params">(@Path(<span class="string">&quot;id&quot;</span>)</span> <span class="keyword">int</span> id)</span>;</span><br></pre></td></tr></table></figure></p>
+<p>Retrofit&#x652F;&#x6301;@GET&#x3001;@POST&#x3001;@HEAD&#x3001;@PUT&#x3001;@DELETA&#x3001;@PATCH&#xFF0C;&#x548C;&#x53C2;&#x6570;&#x76F8;&#x5173;&#x7684;@Path&#x3001;@Field&#x3001;@Multipart&#xFF0C;&#x8868;&#x793A;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x4F7F;&#x7528;&#x7684;&#x8BF7;&#x6C42;&#x65B9;&#x5F0F;&#x3002;&#x53E6;&#x5916;&#x5982;&#x4F55;&#x81EA;&#x5B9A;&#x4E49;Annotation<a href="/2015/11/01/20151101/">&#x8BF7;&#x9605;&#x8BFB;&#x81EA;&#x5B9A;&#x4E49;Annotation</a>&#x3002;<br></p>
+<p>&#x751F;&#x6210;RestAdapter&#x52A8;&#x6001;&#x4EE3;&#x7406;&#x7C7B;&#xFF1A;<br><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GsonBuilder builder = <span class="keyword">new</span> GsonBuilder();</span><br><span class="line">builder.setFieldNamingStrategy(<span class="keyword">new</span> AnnotateNaming());</span><br><span class="line">Gson gson = builder.create();</span><br><span class="line"></span><br><span class="line">Retrofit retrofit = <span class="keyword">new</span> Retrofit.Builder()</span><br><span class="line">                   .baseUrl(API_URL)</span><br><span class="line">                   .addConverterFactory(GsonConverterFactory.create(gson))</span><br><span class="line">                   .build();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">github = retrofit.create(Interfaces.class);</span><br></pre></td></tr></table></figure></p>
+<p>&#x901A;&#x8FC7;Retrofit&#x5C06;Interfaces&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x7684;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x63A5;&#x53E3;&#x751F;&#x6210;&#x52A8;&#x6001;&#x4EE3;&#x7406;&#x7C7B;&#xFF0C;&#x540C;&#x65F6;&#x8BBE;&#x7F6E;&#x8BF7;&#x6C42;&#x7684;&#x53C2;&#x6570;&#xFF1A;</p>
 <ul>
-<li>baseUrl 设置网络请求服务器url前缀，地址必须以“/”结束</li>
-<li>设置addConverterFactory，数据返回之后的解析器，默认采用GsonConverter解析，2.0中提供了六种解析方式：Gson，Jackson,Moshi,Protobuf,Wire,SimpleXML<br>*<br>Convert自定义如：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*定义Date解析方式*/</span></span><br><span class="line">Gson gson = <span class="keyword">new</span> GsonBuilder()</span><br><span class="line">.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)</span><br><span class="line">.registerTypeAdapter(Date.class, <span class="keyword">new</span> DateTypeAdapter())</span><br><span class="line">.create();</span><br></pre></td></tr></table></figure>
+<li>baseUrl &#x8BBE;&#x7F6E;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x670D;&#x52A1;&#x5668;url&#x524D;&#x7F00;&#xFF0C;&#x5730;&#x5740;&#x5FC5;&#x987B;&#x4EE5;&#x201C;/&#x201D;&#x7ED3;&#x675F;</li>
+<li>&#x8BBE;&#x7F6E;addConverterFactory&#xFF0C;&#x6570;&#x636E;&#x8FD4;&#x56DE;&#x4E4B;&#x540E;&#x7684;&#x89E3;&#x6790;&#x5668;&#xFF0C;&#x9ED8;&#x8BA4;&#x91C7;&#x7528;GsonConverter&#x89E3;&#x6790;&#xFF0C;2.0&#x4E2D;&#x63D0;&#x4F9B;&#x4E86;&#x516D;&#x79CD;&#x89E3;&#x6790;&#x65B9;&#x5F0F;&#xFF1A;Gson&#xFF0C;Jackson,Moshi,Protobuf,Wire,SimpleXML<br>*<br>Convert&#x81EA;&#x5B9A;&#x4E49;&#x5982;&#xFF1A;<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*&#x5B9A;&#x4E49;Date&#x89E3;&#x6790;&#x65B9;&#x5F0F;*/</span></span><br><span class="line">Gson gson = <span class="keyword">new</span> GsonBuilder()</span><br><span class="line">.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)</span><br><span class="line">.registerTypeAdapter(Date.class, <span class="keyword">new</span> DateTypeAdapter())</span><br><span class="line">.create();</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>数据返回处理：<br><br>Retrofit2.0中默认在主线程返回数据，则可以直接对数据进行展示和更新<br>如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 同步处理*/</span></span><br><span class="line"><span class="annotation">@GET</span>(<span class="string">"member/register/mobileExists"</span>)</span><br><span class="line"><span class="function">Call&lt;BaseObjectType&gt; <span class="title">mobileExists</span><span class="params">(@Query(<span class="string">"mobile"</span>)</span> String mobile)</span>;</span><br></pre></td></tr></table></figure></p>
-<h2 id="总结">总结</h2><p>Retrofit默认没有指定解析方式，需要首先指定，如：使用GsonConverter。</p>
-<p>总体来说Retrofit看起来很好用，不过要求服务端返回数据最好要规范，不然如果请求成功返回一种数据结构，请求失败返回另一种数据结构，不好用Converter解析，接口的定义也不好定义。</p>
-<h3 id="Retrofit_2-0_个人封装">Retrofit 2.0 个人封装</h3><p>通常开发中客户端与服务器会定义一种通用的协议：<em>head+body</em> 形式，head包含数据的状态，提示文字等等。body的形式分为：字段，对象，数组。若是字段则创建一个对象定义head和body，若是对象则出现json中套有对象，如果强制按照Retrofit方式开发，则需要创建两个对象来获得数据,导致项目中出现量的不必要的对象。开发中出现只是字段的毕竟是少数情况，那么以此类推所有数据访问都需要创建两个对象，假若是<br>数组更加显得开发困难，因此个人针对Retrofit进行了访问数据返回的特别处理，采用泛型定义我们需要的对象实体。<br></p>
-<p>衍生三个实体类：<br></p>
+<p>&#x6570;&#x636E;&#x8FD4;&#x56DE;&#x5904;&#x7406;&#xFF1A;<br><br>Retrofit2.0&#x4E2D;&#x9ED8;&#x8BA4;&#x5728;&#x4E3B;&#x7EBF;&#x7A0B;&#x8FD4;&#x56DE;&#x6570;&#x636E;&#xFF0C;&#x5219;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x5BF9;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x5C55;&#x793A;&#x548C;&#x66F4;&#x65B0;<br>&#x5982;&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* &#x540C;&#x6B65;&#x5904;&#x7406;*/</span></span><br><span class="line"><span class="annotation">@GET</span>(<span class="string">&quot;member/register/mobileExists&quot;</span>)</span><br><span class="line"><span class="function">Call&lt;BaseObjectType&gt; <span class="title">mobileExists</span><span class="params">(@Query(<span class="string">&quot;mobile&quot;</span>)</span> String mobile)</span>;</span><br></pre></td></tr></table></figure></p>
+<h3 id="&#x9AD8;&#x7EA7;&#x5904;&#x7406;">&#x9AD8;&#x7EA7;&#x5904;&#x7406;</h3><ol>
+<li>&#x6DFB;&#x52A0;&#x7F51;&#x7EDC;&#x62E6;&#x622A;&#x5668;interceptor<br>&#x4E00;&#x4E2A;&#x5178;&#x578B;&#x5E94;&#x7528;&#x573A;&#x666F;&#x662F;&#x6240;&#x6709;http&#x8BF7;&#x6C42;&#x9700;&#x8981;&#x52A0;&#x4E0A;api key,&#x5728;Retrofit2&#x4E4B;&#x524D;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;RequestInterceptor&#x5B9E;&#x73B0;<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">final RequestInterceptor authorizationInterceptor = new RequestInterceptor() {
+        @Override
+        public void intercept(RequestInterceptor.RequestFacade request) {
+            request.addQueryParam(MovieDbApi.PARAM_API_KEY, &quot;YOUR_API_KEY&quot;);
+        }
+    };</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>&#x7136;&#x540E;&#x8BBE;&#x7F6E;<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint(Interfaces.END_POINT)
+                .setRequestInterceptor(authorizationInterceptor)
+                .build();
+movieDbApi = restAdapter.create(Interfaces.class);</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>&#x6DFB;&#x52A0;&#x8BBF;&#x95EE;&#x5185;&#x5BB9;&#x65E5;&#x5FD7;logging<br>&#x5728;&#x5F00;&#x53D1;&#x4E2D;&#x6253;&#x5370;&#x7F51;&#x7EDC;&#x8BF7;&#x6C42;&#x548C;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x662F;&#x975E;&#x5E38;&#x91CD;&#x8981;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x5728;Retrofit&#x4E2D;&#x542F;&#x7528;&#x4E86;&#x8FD9;&#x4E2A;&#x529F;&#x80FD;&#xFF0C;&#x4F60;&#x4F1A;&#x53D1;&#x73B0;&#x5B9E;&#x73B0;&#x8BE5;&#x529F;&#x80FD;&#x7684;&#x65B9;&#x6CD5;&#x5DF2;&#x7ECF;&#x4E0D;&#x53EF;&#x7528;&#x4E86;&#x3002;<br>&#x90A3;&#x662F;&#x56E0;&#x4E3A;&#x4F60;&#x73B0;&#x5728;&#x5FC5;&#x987B;&#x4F9D;&#x9760;okhttp&#x63D0;&#x4F9B;&#x7684;&#x65E5;&#x5FD7;&#x7CFB;&#x7EDF;&#xFF0C;HttpLoggingInterceptor.<br>&#x9996;&#x5148;&#x58F0;&#x660E;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x4F9D;&#x8D56;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x4E0D;&#x662F;okhttp&#x7684;&#x4E00;&#x90E8;&#x5206;&#x6240;&#x4EE5;&#x8981;&#x53E6;&#x5916;&#x6DFB;&#x52A0;&#x4F9D;&#x8D56;&#xFF1A;<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &apos;com.squareup.okhttp3:logging-interceptor:3.1.2&apos;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>&#x7136;&#x540E;&#xFF0C;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;interceptor&#x5B9E;&#x4F8B;&#xFF1A;<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build();</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>Gson&#x8F6C;&#x6362;&#x5668;<br>&#x5177;&#x4F53;&#x5DF2;&#x7ECF;&#x5728;&#x4E0A;&#x6587;&#x89E3;&#x91CA;&#xFF0C;&#x552F;&#x4E00;&#x9700;&#x8981;&#x8BF4;&#x660E;&#x4F7F;&#x7528;&#x524D;&#x9700;&#x8981;&#x52A0;&#x5165;&#x4F9D;&#x8D56;&#x5305;<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &apos;com.squareup.retrofit2:converter-gson:2.0.0-beta4&apos;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>4.</p>
+<h2 id="&#x603B;&#x7ED3;">&#x603B;&#x7ED3;</h2><p>Retrofit&#x9ED8;&#x8BA4;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&#x89E3;&#x6790;&#x65B9;&#x5F0F;&#xFF0C;&#x9700;&#x8981;&#x9996;&#x5148;&#x6307;&#x5B9A;&#xFF0C;&#x5982;&#xFF1A;&#x4F7F;&#x7528;GsonConverter&#x3002;</p>
+<p>&#x603B;&#x4F53;&#x6765;&#x8BF4;Retrofit&#x770B;&#x8D77;&#x6765;&#x5F88;&#x597D;&#x7528;&#xFF0C;&#x4E0D;&#x8FC7;&#x8981;&#x6C42;&#x670D;&#x52A1;&#x7AEF;&#x8FD4;&#x56DE;&#x6570;&#x636E;&#x6700;&#x597D;&#x8981;&#x89C4;&#x8303;&#xFF0C;&#x4E0D;&#x7136;&#x5982;&#x679C;&#x8BF7;&#x6C42;&#x6210;&#x529F;&#x8FD4;&#x56DE;&#x4E00;&#x79CD;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x8BF7;&#x6C42;&#x5931;&#x8D25;&#x8FD4;&#x56DE;&#x53E6;&#x4E00;&#x79CD;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x4E0D;&#x597D;&#x7528;Converter&#x89E3;&#x6790;&#xFF0C;&#x63A5;&#x53E3;&#x7684;&#x5B9A;&#x4E49;&#x4E5F;&#x4E0D;&#x597D;&#x5B9A;&#x4E49;&#x3002;</p>
+<h3 id="Retrofit_2-0_&#x4E2A;&#x4EBA;&#x5C01;&#x88C5;">Retrofit 2.0 &#x4E2A;&#x4EBA;&#x5C01;&#x88C5;</h3><p>&#x901A;&#x5E38;&#x5F00;&#x53D1;&#x4E2D;&#x5BA2;&#x6237;&#x7AEF;&#x4E0E;&#x670D;&#x52A1;&#x5668;&#x4F1A;&#x5B9A;&#x4E49;&#x4E00;&#x79CD;&#x901A;&#x7528;&#x7684;&#x534F;&#x8BAE;&#xFF1A;<em>head+body</em> &#x5F62;&#x5F0F;&#xFF0C;head&#x5305;&#x542B;&#x6570;&#x636E;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x63D0;&#x793A;&#x6587;&#x5B57;&#x7B49;&#x7B49;&#x3002;body&#x7684;&#x5F62;&#x5F0F;&#x5206;&#x4E3A;&#xFF1A;&#x5B57;&#x6BB5;&#xFF0C;&#x5BF9;&#x8C61;&#xFF0C;&#x6570;&#x7EC4;&#x3002;&#x82E5;&#x662F;&#x5B57;&#x6BB5;&#x5219;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x5B9A;&#x4E49;head&#x548C;body&#xFF0C;&#x82E5;&#x662F;&#x5BF9;&#x8C61;&#x5219;&#x51FA;&#x73B0;json&#x4E2D;&#x5957;&#x6709;&#x5BF9;&#x8C61;&#xFF0C;&#x5982;&#x679C;&#x5F3A;&#x5236;&#x6309;&#x7167;Retrofit&#x65B9;&#x5F0F;&#x5F00;&#x53D1;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x521B;&#x5EFA;&#x4E24;&#x4E2A;&#x5BF9;&#x8C61;&#x6765;&#x83B7;&#x5F97;&#x6570;&#x636E;,&#x5BFC;&#x81F4;&#x9879;&#x76EE;&#x4E2D;&#x51FA;&#x73B0;&#x91CF;&#x7684;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x5BF9;&#x8C61;&#x3002;&#x5F00;&#x53D1;&#x4E2D;&#x51FA;&#x73B0;&#x53EA;&#x662F;&#x5B57;&#x6BB5;&#x7684;&#x6BD5;&#x7ADF;&#x662F;&#x5C11;&#x6570;&#x60C5;&#x51B5;&#xFF0C;&#x90A3;&#x4E48;&#x4EE5;&#x6B64;&#x7C7B;&#x63A8;&#x6240;&#x6709;&#x6570;&#x636E;&#x8BBF;&#x95EE;&#x90FD;&#x9700;&#x8981;&#x521B;&#x5EFA;&#x4E24;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x5047;&#x82E5;&#x662F;<br>&#x6570;&#x7EC4;&#x66F4;&#x52A0;&#x663E;&#x5F97;&#x5F00;&#x53D1;&#x56F0;&#x96BE;&#xFF0C;&#x56E0;&#x6B64;&#x4E2A;&#x4EBA;&#x9488;&#x5BF9;Retrofit&#x8FDB;&#x884C;&#x4E86;&#x8BBF;&#x95EE;&#x6570;&#x636E;&#x8FD4;&#x56DE;&#x7684;&#x7279;&#x522B;&#x5904;&#x7406;&#xFF0C;&#x91C7;&#x7528;&#x6CDB;&#x578B;&#x5B9A;&#x4E49;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7684;&#x5BF9;&#x8C61;&#x5B9E;&#x4F53;&#x3002;<br></p>
+<p>&#x884D;&#x751F;&#x4E09;&#x4E2A;&#x5B9E;&#x4F53;&#x7C7B;&#xFF1A;<br></p>
 <ul>
-<li>BaseType 针对body为字段</li>
-<li>BaseObjectType 针对body为object形式</li>
-<li>BaseSequenceType 针对body为数组形式。</li>
+<li>BaseType &#x9488;&#x5BF9;body&#x4E3A;&#x5B57;&#x6BB5;</li>
+<li>BaseObjectType &#x9488;&#x5BF9;body&#x4E3A;object&#x5F62;&#x5F0F;</li>
+<li>BaseSequenceType &#x9488;&#x5BF9;body&#x4E3A;&#x6570;&#x7EC4;&#x5F62;&#x5F0F;&#x3002;</li>
 </ul>
-<p>BaseType定义<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>  <span class="class"><span class="keyword">class</span> <span class="title">BaseType</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String message;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">boolean</span> state;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>用于获取基本的数据结构，若除这些字段还有其他，则可以自己集成BaseType扩展。<br></p>
-<p>BaseObjectType定义</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseObjectType</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">BaseType</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> T data;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  T <span class="title">getObject</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>用于获取body为对象情况，当数据解析之后，通过getObject方式获得我们需要的实体对象。<br></p>
-<p>BaseSequenceType定义<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseSequenceType</span> &lt;<span class="title">T</span>&gt;  <span class="keyword">extends</span> <span class="title">BaseType</span></span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;T&gt; data;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;T&gt; <span class="title">getList</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data == <span class="keyword">null</span> ? <span class="number">0</span> : data.size();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>用于获取body为数组的情况，当数据返回之后通过getList方式获得实体数组。<br></p>
-<p>具体通过Retrofit和泛型如何访问数据，如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Call&lt;BaseObjectType&gt; call =  NetworkRequest.getInstance().mobileExists(<span class="string">"18708140959"</span>);</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    BaseObjectType response  = call.execute().body();</span><br><span class="line">    Toast.makeText(MainActivity.<span class="keyword">this</span>, response.message, Toast.LENGTH_SHORT).show();</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>封装之后的Demo下载地址：<a href="https://github.com/Dr-Kalen/RetrofitDemo2.0" target="_blank" rel="external">https://github.com/Dr-Kalen/RetrofitDemo2.0</a></p>
-
-      
-    </div>
-    
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2016/01/19/Simple XML解析/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Simple XML解析（极其方便的XML解析）
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2016/01/06/Ubantu搭建Git服务器/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Ubantu搭建Git服务器</div>
-      <strong class="article-nav-caption">></strong>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-
-<div class="share">
-	<!-- JiaThis Button BEGIN -->
-	<div class="jiathis_style">
-		<span class="jiathis_txt">分享到：</span>
-		<a class="jiathis_button_tsina"></a>
-		<a class="jiathis_button_cqq"></a>
-		<a class="jiathis_button_douban"></a>
-		<a class="jiathis_button_weixin"></a>
-		<a class="jiathis_button_tumblr"></a>
-		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-	</div>
-	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
-	<!-- JiaThis Button END -->
-</div>
-
-
-
-<div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Retrofit2.0基本使用" data-title="Retrofit2.0基本使用和个人封装" data-url="http://www.baidu.com/2016/01/19/Retrofit2.0基本使用/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"true"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
-
-
-
-
-</div>
-      <footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-    	<div class="footer-left">
-    		&copy; 2016 Kalen
-    	</div>
-      	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
-      	</div>
-    </div>
-  </div>
-</footer>
-    </div>
-    
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
-
-
-<script>
-	var yiliaConfig = {
-		fancybox: true,
-		mathjax: true,
-		animate: true,
-		isHome: false,
-		isPost: true,
-		isArchive: false,
-		isTag: false,
-		isCategory: false,
-		open_in_new: false
-	}
-</script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
-
-
-
-
-
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
-});
-</script>
-
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-
-  </div>
-</body>
-</html>
+<p>BaseType&#x5B9A;&#x4E49;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>  <span class="class"><span class="keyword">class</span> <span class="title">BaseType</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String message;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">boolean</span> state;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p>&#x7528;&#x4E8E;&#x83B7;&#x53D6;&#x57FA;&#x672C;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x82E5;&#x9664;&#x8FD9;&#x4E9B;&#x5B57;&#x6BB5;&#x8FD8;&#x6709;&#x5176;&#x4ED6;&#xFF0C;&#x5219;&#x53EF;&#x4EE5;&#x81EA;&#x5DF1;&#x96C6;&#x6210;BaseType&#x6269;&#x5C55;&#x3002;<br></p>
+<p>BaseObjectType&#x5B9A;&#x4E49;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseObjectType</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">BaseType</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> T data;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  T <span class="title">getObject</span><span class="params">()</span></span>{</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x7528;&#x4E8E;&#x83B7;&#x53D6;body&#x4E3A;&#x5BF9;&#x8C61;&#x60C5;&#x51B5;&#xFF0C;&#x5F53;&#x6570;&#x636E;&#x89E3;&#x6790;&#x4E4B;&#x540E;&#xFF0C;&#x901A;&#x8FC7;getObject&#x65B9;&#x5F0F;&#x83B7;&#x5F97;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7684;&#x5B9E;&#x4F53;&#x5BF9;&#x8C61;&#x3002;<br></p>
+<p>BaseSequenceType&#x5B9A;&#x4E49;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseSequenceType</span> &lt;<span class="title">T</span>&gt;  <span class="keyword">extends</span> <span class="title">BaseType</span></span>{</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;T&gt; data;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;T&gt; <span class="title">getList</span><span class="params">()</span></span>{</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span></span>{</span><br><span class="line">        <span class="keyword">return</span> data == <span class="keyword">null</span> ? <span class="number">0</span> : data.size();</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p>&#x7528;&#x4E8E;&#x83B7;&#x53D6;body&#x4E3A;&#x6570;&#x7EC4;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x5F53;&#x6570;&#x636E;&#x8FD4;&#x56DE;&#x4E4B;&#x540E;&#x901A;&#x8FC7;getList&#x65B9;&#x5F0F;&#x83B7;&#x5F97;&#x5B9E;&#x4F53;&#x6570;&#x7EC4;&#x3002;<br></p>
+<p>&#x5177;&#x4F53;&#x901A;&#x8FC7;Retrofit&#x548C;&#x6CDB;&#x578B;&#x5982;&#x4F55;&#x8BBF;&#x95EE;&#x6570;&#x636E;&#xFF0C;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Call&lt;BaseObjectType&gt; call =  NetworkRequest.getInstance().mobileExists(<span class="string">&quot;18708140959&quot;</span>);</span><br><span class="line"><span class="keyword">try</span> {</span><br><span class="line">    BaseObjectType response  = call.execute().body();</span><br><span class="line">    Toast.makeText(MainActivity.<span class="keyword">this</span>, response.message, Toast.LENGTH_SHORT).show();</span><br><span class="line">} <span class="keyword">catch</span> (IOException e) {</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p>&#x5C01;&#x88C5;&#x4E4B;&#x540E;&#x7684;Demo&#x4E0B;&#x8F7D;&#x5730;&#x5740;&#xFF1A;<a href="https://github.com/Dr-Kalen/RetrofitDemo2.0" target="_blank" rel="external">https://github.com/Dr-Kalen/RetrofitDemo2.0</a></p>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://www.baidu.com/2016/01/19/Retrofit2.0基本使用/" data-id="cipdudrad000d4ajijsnyhhwp" class="article-share-link">分享到</a><div class="tags"><a href="/tags/网络篇/">网络篇</a></div><div class="post-nav"><a href="/2016/01/19/Simple XML解析/" class="pre">Simple XML解析（极其方便的XML解析）</a><a href="/2016/01/06/Ubantu搭建Git服务器/" class="next">Ubantu搭建Git服务器</a></div></div></div></div><div class="pure-u-1-4"><div id="sidebar"><div class="widget"><form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://www.baidu.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/git-gitlite-gitosis-gitweb/" style="font-size: 15px;">git gitlite gitosis gitweb</a> <a href="/tags/Parse/" style="font-size: 15px;">Parse</a> <a href="/tags/反射利用/" style="font-size: 15px;">反射利用</a> <a href="/tags/网络篇/" style="font-size: 15px;">网络篇</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/技术文章/" style="font-size: 15px;">技术文章</a> <a href="/tags/随记/" style="font-size: 15px;">随记</a> <a href="/tags/Android-Studio/" style="font-size: 15px;">Android Studio</a> <a href="/tags/自定义View/" style="font-size: 15px;">自定义View</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/06/13/深入剖析自定义View/">深入剖析自定义View</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/13/深入剖析自定义View之onMeasure/">深入剖析自定义View之onMeasure</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/20/Context的全面理解/">Context的全面理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/25/Maven服务器搭建/">Linux环境下Maven服务器搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/19/Simple XML解析/">Simple XML解析（极其方便的XML解析）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/19/Retrofit2.0基本使用/">Retrofit2.0基本使用和个人封装</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/06/Ubantu搭建Git服务器/">Ubantu搭建Git服务器</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/03/Hexo 静态博客/">Hexo 静态博客 部署Github</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/02/Gson高级使用/">Gson高级使用和GsonBuilder设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/11/02/Android Studio插件/">Android Studio插件</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.csdn.net" title="CSDN" target="_blank">CSDN</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">Dr's Blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
