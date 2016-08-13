@@ -1,0 +1,237 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Android 编程规范 | 老柏</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/4.1.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Android 编程规范</h1><a id="logo" href="/.">老柏</a><p class="description">Dr.Kalen的博客</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Android 编程规范</h1><div class="post-meta">Aug 13, 2016<script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><a data-thread-key="2016/08/13/Android编程规范/" href="/2016/08/13/Android编程规范/#comments" class="ds-thread-count"></a><div class="post-content"><p>&#x4ECE;&#x505A;&#x4E00;&#x540D;&#x7A0B;&#x5E8F;&#x5458;&#x5230;&#x6210;&#x4E3A;&#x4E00;&#x540D;&#x9879;&#x76EE;&#x7ECF;&#x7406;&#xFF0C;&#x4EE3;&#x7801;&#x662F;&#x62AC;&#x5934;&#x4E0D;&#x89C1;&#x4F4E;&#x5934;&#x89C1;&#x3002;&#x6709;&#x65F6;&#x51FA;&#x73B0;&#x9694;&#x5929;&#x65E0;&#x6CD5;&#x64CD;&#x4F5C;&#x81EA;&#x5DF1;&#x4EE3;&#x7801;&#xFF0C;&#x9700;&#x8981;&#x91CD;&#x65B0;&#x5206;&#x6790;&#x751A;&#x81F3;&#x91CD;&#x65B0;&#x91CD;&#x6784;&#x6765;&#x719F;&#x6089;&#xFF1B;&#x6709;&#x65F6;&#x56E2;&#x961F;&#x6210;&#x5458;&#x79BB;&#x804C;&#x9700;&#x8981;&#x4EE3;&#x7801;&#x79FB;&#x4EA4;&#xFF0C;&#x540E;&#x8005;&#x9605;&#x8BFB;&#x4EE3;&#x7801;&#x6548;&#x7387;&#x4F4E;&#x4E0B;&#x3001;&#x4EE3;&#x7801;&#x79FB;&#x4EA4;&#x6210;&#x6548;&#x5F88;&#x5DEE;&#xFF0C;&#x66F4;&#x522B;&#x63D0;&#x540E;&#x671F;&#x7EE7;&#x7EED;&#x7EF4;&#x62A4;&#xFF0C;&#x901A;&#x5E38;&#x6709;&#x813E;&#x6C14;&#x7684;&#x5F00;&#x53D1;&#x8005;&#x4F1A;&#x81EA;&#x5DF1;&#x901A;&#x8FC7;&#x52A0;&#x73ED;&#x7684;&#x5F62;&#x5F0F;&#x91CD;&#x65B0;&#x7F16;&#x5199;&#x524D;&#x4EFB;&#x4EE3;&#x7801;&#x3002;&#x4ECE;&#x8FD9;&#x4E9B;&#x79CD;&#x79CD;&#x4F5C;&#x4E3A;&#x5F53;&#x521D;&#x7684;&#x7A0B;&#x5E8F;&#x5458;&#x548C;&#x73B0;&#x5728;&#x7684;&#x9879;&#x76EE;&#x7ECF;&#x7406;&#x6765;&#x770B;&#x7B80;&#x76F4;&#x662F;&#x5669;&#x68A6;&#xFF0C;&#x4EE3;&#x7801;&#x9605;&#x8BFB;&#x6027;&#x548C;&#x53EF;&#x6269;&#x5C55;&#x6027;&#x4E0D;&#x662F;&#x4E00;&#x8E74;&#x800C;&#x5C31;&#xFF0C;&#x9700;&#x8981;&#x5FAA;&#x5E8F;&#x6E10;&#x8FDB;&#x7684;&#x68C0;&#x7D22;&#x548C;&#x91CD;&#x6784;&#xFF0C;&#x4F46;&#x4EE3;&#x7801;&#x6309;&#x7167;&#x56E2;&#x961F;&#x6216;&#x591A;&#x4EBA;&#x5171;&#x8BC6;&#x7684;&#x4EE3;&#x7801;&#x89C4;&#x8303;&#x8FDB;&#x884C;&#x7F16;&#x5199;&#xFF0C;&#x8FD9;&#x5BF9;&#x4E8E;&#x4E2A;&#x4EBA;&#x6216;&#x56E2;&#x961F;&#x4EA4;&#x53C9;&#x7F16;&#x7A0B;&#x65F6;&#x4EE3;&#x7801;&#x8BC6;&#x522B;&#x964D;&#x4F4E;&#x96BE;&#x5EA6;&#x3002;</p>
+<p>&#x6BCF;&#x4E2A;&#x516C;&#x53F8;&#x90FD;&#x6709;&#x81EA;&#x5DF1;&#x7684;&#x4E00;&#x5957;&#x4EE3;&#x7801;&#x7F16;&#x7A0B;&#x89C4;&#x8303;&#xFF0C;&#x5BA1;&#x6838;&#x4E00;&#x4E2A;&#x7A0B;&#x5E8F;&#x5458;&#x7684;&#x7F16;&#x7A0B;&#x6C34;&#x5E73;&#xFF0C;&#x4EE3;&#x7801;&#x547D;&#x540D;&#x548C;&#x4EE3;&#x7801;&#x7ED3;&#x6784;&#x5C06;&#x662F;&#x5176;&#x4E2D;&#x4E00;&#x5927;&#x8981;&#x7D20;&#x3002;</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x4EE3;&#x7801;&#x89C4;&#x8303;&#x5206;&#x4E3A;&#x547D;&#x540D;&#x3001;&#x7ED3;&#x6784;&#x3001;&#x6CE8;&#x89E3;</span><br></pre></td></tr></table></figure>
+<h3 id="&#x4EE3;&#x7801;&#x547D;&#x540D;">&#x4EE3;&#x7801;&#x547D;&#x540D;</h3><p>&#x4EE3;&#x7801;&#x547D;&#x540D;&#x662F;&#x56FD;&#x5185;&#x5F00;&#x53D1;&#x8005;&#x6BD4;&#x8F83;&#x5934;&#x75DB;&#x7684;&#x4E00;&#x4EF6;&#x4E8B;&#xFF0C;&#x66FE;&#x7ECF;&#x51FA;&#x73B0;&#x4E00;&#x4E9B;&#x7528;&#x4E2D;&#x6587;&#x62FC;&#x97F3;&#x6765;&#x547D;&#x540D;&#xFF0C;&#x51FA;&#x4E86;&#x4E0D;&#x5C11;&#x641E;&#x7B11;&#x7684;&#x4E8B;&#x8FF9;&#x3002;&#x4EE3;&#x7801;&#x4E2D;&#x5E94;&#x8BE5;&#x9664;&#x6CE8;&#x91CA;&#x548C;&#x786C;&#x7F16;&#x7801;&#x4E4B;&#x5916;&#x7684;&#x5176;&#x4ED6;&#x5730;&#x65B9;&#x4E0D;&#x80FD;&#x51FA;&#x73B0;&#x4EFB;&#x4F55;&#x4E2D;&#x6587;&#xFF0C;&#x4FDD;&#x6301;&#x4EE3;&#x7801;&#x7684;&#x7B80;&#x6D01;&#x548C;&#x4F18;&#x7F8E;&#x3002;</p>
+<h4 id="&#x547D;&#x540D;&#x65B9;&#x5F0F;">&#x547D;&#x540D;&#x65B9;&#x5F0F;</h4><ol>
+<li><p>&#x9A7C;&#x5CF0;&#x5F0F;&#x547D;&#x540D;&#x6CD5;<br>&#x5F53;&#x53D8;&#x91CF;&#x540D;&#x6216;&#x51FD;&#x5F0F;&#x540D;&#x662F;&#x7531;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x5355;&#x8BCD;&#x8FDE;&#x7ED3;&#x5728;&#x4E00;&#x8D77;&#xFF0C;&#x800C;&#x6784;&#x6210;&#x7684;&#x552F;&#x4E00;&#x8BC6;&#x522B;&#x5B57;&#x65F6;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x5355;&#x8BCD;&#x4EE5;&#x5C0F;&#x5199;&#x5B57;&#x6BCD;&#x5F00;&#x59CB;&#xFF1B;&#x7B2C;&#x4E8C;&#x4E2A;&#x5355;&#x8BCD;&#x7684;&#x9996;&#x5B57;&#x6BCD;&#x5927;&#x5199;&#x6216;&#x6BCF;&#x4E00;&#x4E2A;&#x5355;&#x8BCD;&#x7684;&#x9996;&#x5B57;&#x6BCD;&#x90FD;&#x91C7;&#x7528;&#x5927;&#x5199;&#x5B57;&#x6BCD;&#xFF0C;&#x4E00;&#x822C;&#x7528;&#x4E8E;&#x53D8;&#x91CF;&#xFF0C;&#x5E38;&#x91CF;&#xFF0C;&#x8D44;&#x6E90;&#x547D;&#x540D;&#xFF0C;ID&#x547D;&#x540D;&#x7B49;</p>
+</li>
+<li><p>&#x5E15;&#x65AF;&#x5361;&#x547D;&#x540D;&#x6CD5;&#xFF1A;&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x5927;&#x9A7C;&#x5CF0;&#x547D;&#x540D;&#x6CD5;&#xFF0C;&#x533A;&#x522B;&#x662F;&#x7B2C;&#x4E00;&#x4E2A;&#x5355;&#x8BCD;&#x7684;&#x9996;&#x5B57;&#x6BCD;&#x5927;&#x5199;&#xFF0C;&#x4E00;&#x822C;&#x5E94;&#x7528;&#x4E8E;&#x7C7B;&#x540D;&#xFF0C;&#x63A5;&#x53E3;&#x540D;&#x3002;</p>
+</li>
+</ol>
+<h4 id="&#x7EA6;&#x5B9A;&#x4F18;&#x4E8E;&#x914D;&#x7F6E;">&#x7EA6;&#x5B9A;&#x4F18;&#x4E8E;&#x914D;&#x7F6E;</h4><p>&#x8FD9;&#x4E2A;&#x6982;&#x5FF5;&#x662F;&#x5728;&#x5F88;&#x591A;&#x4E66;&#x7C4D;&#x4E2D;&#x90FD;&#x6709;&#x63D0;&#x5230;&#xFF0C;&#x5F80;&#x5F80;&#x5408;&#x4F5C;&#x5F00;&#x53D1;&#x5E38;&#x51FA;&#x73B0;&#x6C9F;&#x901A;&#x95EE;&#x9898;&#xFF0C;&#x9020;&#x6210;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x65F6;&#x95F4;&#x6D6A;&#x8D39;&#x751A;&#x81F3;&#x51FA;&#x73B0;&#x76F8;&#x4E92;&#x62B5;&#x89E6;&#xFF0C;&#x4E3A;&#x4E86;&#x51CF;&#x5C11;&#x8FD9;&#x6837;&#x7684;&#x4E8B;&#x60C5;&#x51FA;&#x73B0;&#xFF0C;&#x5EFA;&#x7ACB;&#x5927;&#x5BB6;&#x5171;&#x8BC6;&#x7684;&#x4E00;&#x4E9B;&#x7F29;&#x5199;&#x6807;&#x8BC6;&#x3002;&#x5982;&#x4E0B;&#xFF1A;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">&#x540D;&#x79F0;</th>
+<th style="text-align:center">&#x7F29;&#x5199;</th>
+<th style="text-align:center">&#x63CF;&#x8FF0;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">icon</td>
+<td style="text-align:center">ic</td>
+<td style="text-align:center">APP&#x7684;&#x542F;&#x52A8;&#x56FE;&#x6807;</td>
+</tr>
+<tr>
+<td style="text-align:center">average</td>
+<td style="text-align:center">avg</td>
+<td style="text-align:center">XX&#x5E73;&#x5747;&#x503C;</td>
+</tr>
+<tr>
+<td style="text-align:center">background</td>
+<td style="text-align:center">bg</td>
+<td style="text-align:center">XX&#x80CC;&#x666F;</td>
+</tr>
+<tr>
+<td style="text-align:center">buffer</td>
+<td style="text-align:center">buf</td>
+<td style="text-align:center">XX&#x7F13;&#x5B58;</td>
+</tr>
+<tr>
+<td style="text-align:center">control</td>
+<td style="text-align:center">ctrl</td>
+<td style="text-align:center">XX&#x63A7;&#x5236;</td>
+</tr>
+<tr>
+<td style="text-align:center">delete</td>
+<td style="text-align:center">del</td>
+<td style="text-align:center">&#x5220;&#x9664;</td>
+</tr>
+<tr>
+<td style="text-align:center">document</td>
+<td style="text-align:center">doc</td>
+<td style="text-align:center">&#x6587;&#x6863;</td>
+</tr>
+<tr>
+<td style="text-align:center">error</td>
+<td style="text-align:center">err</td>
+<td style="text-align:center">&#x9519;&#x8BEF;</td>
+</tr>
+<tr>
+<td style="text-align:center">infomation</td>
+<td style="text-align:center">info</td>
+<td style="text-align:center">&#x4FE1;&#x606F;</td>
+</tr>
+<tr>
+<td style="text-align:center">initial</td>
+<td style="text-align:center">init</td>
+<td style="text-align:center">&#x521D;&#x59CB;&#x5316;</td>
+</tr>
+<tr>
+<td style="text-align:center">image</td>
+<td style="text-align:center">img</td>
+<td style="text-align:center">&#x56FE;&#x7247;</td>
+</tr>
+<tr>
+<td style="text-align:center">length</td>
+<td style="text-align:center">len</td>
+<td style="text-align:center">&#x957F;&#x5EA6;</td>
+</tr>
+<tr>
+<td style="text-align:center">library</td>
+<td style="text-align:center">lib</td>
+<td style="text-align:center">&#x5E93;</td>
+</tr>
+<tr>
+<td style="text-align:center">message</td>
+<td style="text-align:center">msg</td>
+<td style="text-align:center">&#x6D88;&#x606F;</td>
+</tr>
+<tr>
+<td style="text-align:center">password</td>
+<td style="text-align:center">pwd</td>
+<td style="text-align:center">&#x5BC6;&#x7801;</td>
+</tr>
+<tr>
+<td style="text-align:center">string</td>
+<td style="text-align:center">str</td>
+<td style="text-align:center">&#x5B57;&#x7B26;&#x4E32;</td>
+</tr>
+<tr>
+<td style="text-align:center">temp</td>
+<td style="text-align:center">tmp</td>
+<td style="text-align:center">&#x4E34;&#x65F6;</td>
+</tr>
+<tr>
+<td style="text-align:center">button</td>
+<td style="text-align:center">btn</td>
+<td style="text-align:center">&#x6309;&#x94AE;</td>
+</tr>
+<tr>
+<td style="text-align:center">imageView</td>
+<td style="text-align:center">iv</td>
+<td style="text-align:center">&#x56FE;&#x7247;View</td>
+</tr>
+<tr>
+<td style="text-align:center">dialog</td>
+<td style="text-align:center">dlg</td>
+<td style="text-align:center">&#x5F39;&#x51FA;&#x6846;</td>
+</tr>
+<tr>
+<td style="text-align:center">animation</td>
+<td style="text-align:center">anim</td>
+<td style="text-align:center">&#x52A8;&#x753B;</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#xFF01;&#x6CE8;&#x610F;&#xFF1A;&#x7A0B;&#x5E8F;&#x4E2D;&#x4F7F;&#x7528;&#x5355;&#x8BCD;&#x7F29;&#x5199;&#x539F;&#x5219;&#xFF0C;&#x4E0D;&#x8981;&#x7528;&#x7F29;&#x5199;&#xFF0C;&#x9664;&#x975E;&#x8BE5;&#x7F29;&#x5199;&#x662F;&#x7EA6;&#x5B9A;&#x4FD7;&#x6210;&#x7684;</span><br></pre></td></tr></table></figure>
+<h4 id="&#x547D;&#x540D;&#x89C4;&#x8303;">&#x547D;&#x540D;&#x89C4;&#x8303;</h4><p>&#x901A;&#x5E38;Android&#x6216;Java&#x5F00;&#x53D1;&#x8005;&#x9700;&#x8981;&#x547D;&#x540D;&#x7684;&#x4F4D;&#x7F6E;&#x5305;&#x62EC;&#xFF1A;&#x7C7B;&#x3001;&#x65B9;&#x6CD5;&#x3001;&#x63A5;&#x53E3;&#x3001;&#x5305;&#x3001;&#x53D8;&#x91CF;&#x3001;&#x5E38;&#x91CF;&#x3001;&#x6587;&#x4EF6;&#x3001;&#x8D44;&#x6E90;ID</p>
+<ol>
+<li>&#x5305;&#x540D;<br>&#x9996;&#x5148;&#x5305;&#x540D;&#x91C7;&#x7528;&#x57DF;&#x540D;&#x5012;&#x8FC7;&#x6765;&#x8FDB;&#x884C;&#x547D;&#x540D;&#xFF0C;&#x5373;&#x201C;com.xxx&#x201D;&#x3002;&#x9879;&#x76EE;&#x4E2D;&#x9700;&#x8981;&#x5C06;&#x4E0D;&#x540C;&#x4EE3;&#x7801;&#x548C;&#x6587;&#x4EF6;&#x5206;&#x7C7B;&#x8FDB;&#x884C;&#x7BA1;&#x7406;&#xFF0C;&#x56E0;&#x6B64;&#x5305;&#x540D;&#x5E94;&#x8BE5;&#x7EE7;&#x7EED;&#x7EC6;&#x5206;&#x201D;com.xxx.functions&#x201D;&#x3002;&#x5728;Android&#x5F00;&#x53D1;&#x4E2D;&#x901A;&#x5E38;&#x5305;&#x62EC;&#x4EE5;&#x4E0B;&#x5206;&#x7C7B;&#xFF1A;</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">&#x547D;&#x540D;</th>
+<th style="text-align:center">&#x5206;&#x7C7B;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">activities</td>
+<td style="text-align:center">&#x754C;&#x9762;&#x96C6;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x7528;&#x6237;&#x754C;&#x9762;</td>
+</tr>
+<tr>
+<td style="text-align:center">fragments</td>
+<td style="text-align:center">&#x754C;&#x9762;&#x96C6;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x7528;&#x6237;&#x7247;&#x6BB5;&#x754C;&#x9762;</td>
+</tr>
+<tr>
+<td style="text-align:center">adapters</td>
+<td style="text-align:center">&#x9875;&#x9762;&#x7528;&#x5230;&#x7684;Adapter&#x7C7B; (&#x9002;&#x914D;&#x5668;&#x7684;&#x7C7B;)</td>
+</tr>
+<tr>
+<td style="text-align:center">common</td>
+<td style="text-align:center">&#x57FA;&#x7840;&#x5185;&#x5BB9;&#xFF0C;&#x516C;&#x5171;&#x5171;&#x4EAB;</td>
+</tr>
+<tr>
+<td style="text-align:center">tools</td>
+<td style="text-align:center">&#x5DE5;&#x5177;&#x76F8;&#x5173;&#xFF0C;&#x72EC;&#x7ACB;&#x5B58;&#x5728;</td>
+</tr>
+<tr>
+<td style="text-align:center">entities</td>
+<td style="text-align:center">&#x9879;&#x76EE;&#x5B9E;&#x4F53;&#x96C6;</td>
+</tr>
+<tr>
+<td style="text-align:center">db</td>
+<td style="text-align:center">&#x6570;&#x636E;&#x6301;&#x4E45;&#x5C42;&#x64CD;&#x4F5C;</td>
+</tr>
+<tr>
+<td style="text-align:center">view</td>
+<td style="text-align:center">&#x6240;&#x7528;&#x5230;&#x6240;&#x6709;&#x7B2C;&#x4E09;&#x65B9;&#x81EA;&#x5B9A;&#x4E49;View&#x3001;&#x4E0E;View&#x64CD;&#x4F5C;&#x76F8;&#x5173;&#x7684;&#x529F;&#x80FD;</td>
+</tr>
+<tr>
+<td style="text-align:center">service</td>
+<td style="text-align:center">&#x7CFB;&#x7EDF;&#x540E;&#x53F0;&#x670D;&#x52A1;&#x5C42;</td>
+</tr>
+<tr>
+<td style="text-align:center">broadcast</td>
+<td style="text-align:center">&#x7CFB;&#x7EDF;&#x5E7F;&#x64AD;&#x96C6;</td>
+</tr>
+<tr>
+<td style="text-align:center">dialogs</td>
+<td style="text-align:center">&#x6240;&#x6709;&#x5F39;&#x51FA;&#x63D0;&#x793A;&#x6846;</td>
+</tr>
+<tr>
+<td style="text-align:center">push</td>
+<td style="text-align:center">&#x4E0E;&#x63A8;&#x9001;&#x76F8;&#x5173;</td>
+</tr>
+<tr>
+<td style="text-align:center">net</td>
+<td style="text-align:center">&#x4E0E;&#x7F51;&#x7EDC;&#x76F8;&#x5173;</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><p>&#x7C7B;&#x540D;&#x548C;&#x63A5;&#x53E3;<br>&#x91C7;&#x7528;&#x5E15;&#x65AF;&#x5361;&#x547D;&#x540D;&#x6CD5;&#xFF0C;&#x5C3D;&#x91CF;&#x907F;&#x514D;&#x7F29;&#x5199;&#xFF0C;&#x7F29;&#x5199;&#x5BB9;&#x6613;&#x5E26;&#x6765;&#x9605;&#x8BFB;&#x6B67;&#x4E49;&#x3002;&#x5982;&#x201C;LoginActivity, LoadService, UserAdapter, TimeBroadcast&#x201D;&#x7B49;&#x3002;</p>
+</li>
+<li><p>&#x65B9;&#x6CD5;&#x540D;<br>&#x6839;&#x636E;Java&#x8BF4;&#x6CD5;&#xFF0C;&#x201C;&#x4E07;&#x7269;&#x7686;&#x5BF9;&#x8C61;&#x201D;&#x3002;&#x90A3;&#x4E48;&#x5BF9;&#x8C61;&#x4E2D;&#x7684;&#x65B9;&#x6CD5;&#x5373;&#x662F;&#x53EF;&#x6267;&#x884C;&#x7684;&#x52A8;&#x4F5C;&#xFF0C;&#x56E0;&#x6B64;&#x901A;&#x5E38;&#x65B9;&#x6CD5;&#x540D;&#x90FD;&#x662F;&#x91C7;&#x7528;&#x52A8;&#x8BCD;&#x547D;&#x540D;&#xFF0C;&#x6240;&#x4EE5;&#x6709;&#x4E00;&#x79CD;&#x8BF4;&#x6CD5;&#xFF0C;&#x627E;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x4E2D;&#x7684;&#x65B9;&#x6CD5;&#x5C31;&#x53BB;&#x627E;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x4E2D;&#x51FA;&#x73B0;&#x4E86;&#x90A3;&#x4E9B;&#x52A8;&#x8BCD;&#x3002;&#x5982;&#x201C;onCreate, onIntercepter&#x201D;&#x90FD;&#x91C7;&#x7528;&#x5C0F;&#x9A7C;&#x5CF0;&#x6807;&#x8BC6;&#x65B9;&#x6CD5;&#x3002;</p>
+</li>
+<li><p>&#x53D8;&#x91CF;<br>&#x91C7;&#x7528;&#x5C0F;&#x9A7C;&#x5CF0;&#x6807;&#x8BC6;&#x65B9;&#x6CD5;&#xFF0C;&#x4E00;&#x822C;&#x8981;&#x5C3D;&#x91CF;&#x8BA9;&#x5927;&#x5BB6;&#x80FD;&#x591F;&#x8BC6;&#x522B;&#x5230;&#x5177;&#x4F53;&#x610F;&#x8BC6;&#xFF0C;&#x5728;android&#x4E2D;&#x901A;&#x5E38;&#x53D8;&#x91CF;&#x91C7;&#x7528;&#x4EE5;&#x201D;m&#x201D;&#x5F00;&#x5934;&#x547D;&#x540D;&#xFF0C;&#x8FD9;&#x6837;&#x9632;&#x6B62;set&#x65B9;&#x6CD5;&#x5E26;&#x6765;&#x7684;&#x53D8;&#x91CF;&#x540D;&#x79F0;&#x76F8;&#x540C;&#x9020;&#x6210;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x9EBB;&#x70E6;&#x3002;&#x5982;&#x201C;setName&#x201D;&#x4E2D;&#x53D8;&#x91CF;&#x540D;&#x548C;&#x53C2;&#x6570;&#x540D;&#x76F8;&#x540C;&#x3002;</p>
+</li>
+<li><p>&#x5E38;&#x91CF;<br>&#x63D0;&#x793A;&#xFF0C;&#x6240;&#x6709;&#x5B57;&#x6BCD;&#x5168;&#x90E8;&#x5927;&#x5199;&#xFF0C;&#x6BCF;&#x4E2A;&#x5355;&#x8BCD;&#x4E4B;&#x95F4;&#x7528;&#x201C;_&#x201D;&#x6765;&#x8FDB;&#x884C;&#x5206;&#x5F00;&#x3002;&#x5982;&#x201C;CONFIG_IP, PORT&#x201D;</p>
+</li>
+<li><p>&#x8D44;&#x6E90;ID<br>&#x5728;android&#x4E2D;&#x8FD9;&#x79CD;ID&#x6BD4;&#x8F83;&#x591A;&#xFF0C;&#x5E03;&#x5C40;&#x6587;&#x4EF6;&#x3001;&#x56FE;&#x7247;&#x6587;&#x4EF6;&#x3001;&#x52A8;&#x753B;&#x6587;&#x4EF6;&#x3001;&#x666E;&#x901A;&#x6587;&#x4EF6;&#x3001;&#x786C;&#x7F16;&#x7801;&#x5B57;&#x7B26;&#x4E32;&#x3001;&#x786C;&#x7F16;&#x7801;&#x6570;&#x5B57;&#x3001;&#x786C;&#x7F16;&#x7801;&#x989C;&#x8272;&#x503C;&#x7B49;&#x3002;&#x91C7;&#x7528;&#x4E24;&#x5927;&#x539F;&#x5219;&#xFF1A;</p>
+<ul>
+<li><p>&#x4F7F;&#x7528;&#x7F29;&#x5199;&#x524D;&#x7F00;<em>&#x529F;&#x80FD;&#x6807;&#x8BC6;</em>&#x72B6;&#x6001;&#xFF0C;&#x5982;&#x201C;btn_save, iv_picture, ic_launcher, iv_login_pressed&#x201D;&#x901A;&#x5E38;&#x7528;&#x4E8E;&#x56FE;&#x7247;&#x3001;&#x52A8;&#x753B;&#x6587;&#x4EF6;&#x3002;</p>
+</li>
+<li><p>&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x529F;&#x80FD;_&#x7C7B;&#x578B;, &#x5982;&#x201C;login_layout, bg_color, login_label, login_successful_tips&#x201D;&#x901A;&#x5E38;&#x7528;&#x4E8E;&#x786C;&#x7F16;&#x7801;&#x3001;&#x5E03;&#x5C40;&#x6587;&#x4EF6;&#xFF0C;&#x666E;&#x901A;&#x6587;&#x4EF6;</p>
+</li>
+</ul>
+</li>
+<li><p>&#x5176;&#x4ED6;&#x89C4;&#x8303;</p>
+<ul>
+<li>&#x6BCF;&#x4E2A;&#x65B9;&#x6CD5;&#x7684;&#x4EE3;&#x7801;&#x91CF;&#x4E0D;&#x80FD;&#x8D85;&#x8FC7;50&#x884C;</li>
+<li>&#x6BCF;&#x884C;&#x4EE3;&#x7801;&#x5B57;&#x6BCD;&#x6570;&#x4E0D;&#x80FD;&#x8D85;&#x8FC7;80&#x4E2A;&#x5B57;&#x7B26;</li>
+<li>&#x6240;&#x6709;&#x4EE3;&#x7801;&#x4F4D;&#x7F6E;&#x9700;&#x8981;&#x9075;&#x7167;JavaDoc&#x7F16;&#x5199;&#x6CE8;&#x91CA;</li>
+<li>&#x786C;&#x7F16;&#x7801;&#x5185;&#x5BB9;&#x9700;&#x8981;&#x901A;&#x8FC7;&#x901A;&#x914D;&#x7B26;&#x6765;&#x8FDB;&#x884C;&#x62FC;&#x63A5;</li>
+<li>&#x8F93;&#x5165;&#x6570;&#x636E;&#x90FD;&#x9700;&#x8981;&#x68C0;&#x9A8C;&#x624D;&#x4F7F;&#x7528;</li>
+<li>&#x5C3D;&#x91CF;&#x91C7;&#x7528;.9&#x56FE;&#x7247;&#x6587;&#x4EF6;&#x6216;&#x5C3D;&#x91CF;&#x5206;&#x5272;&#x56FE;&#x7247;&#x91CD;&#x590D;&#x4F7F;&#x7528;</li>
+<li>&#x670D;&#x52A1;&#x5668;&#x80FD;&#x591F;&#x5B9E;&#x73B0;&#x5219;&#x4E0D;&#x8981;&#x5BA2;&#x6237;&#x7AEF;&#x5B9E;&#x73B0;</li>
+<li>&#x65E5;&#x5FD7;&#x6253;&#x5370;&#x9700;&#x8981;&#x4F53;&#x73B0;&#x6A21;&#x5757;&#x548C;&#x65B9;&#x6CD5;&#x4EE5;&#x53CA;&#x63CF;&#x8FF0;</li>
+</ul>
+</li>
+</ol>
+<h3 id="&#x4EE3;&#x7801;&#x7ED3;&#x6784;">&#x4EE3;&#x7801;&#x7ED3;&#x6784;</h3><p>&#x9ED8;&#x8BA4;Android&#x5DE5;&#x7A0B;&#x91C7;&#x7528;&#x7684;MVC&#x7ED3;&#x6784;&#xFF0C;&#x5148;&#x6BD4;&#x8F83;&#x6D41;&#x884C;MVP&#x548C;MVVP&#x7ED3;&#x6784;&#xFF0C;&#x53EF;&#x5EFA;&#x7ACB;&#x4E00;&#x5957;MVP&#x6A21;&#x677F;&#x7528;&#x4E8E;&#x5168;&#x516C;&#x53F8;&#x4F7F;&#x7528;&#xFF0C;&#x540C;&#x65F6;&#x914D;&#x5957;MVP&#x6BCF;&#x4E2A;&#x6A21;&#x5757;&#x4EE5;&#x53CA;&#x5982;&#x4F55;&#x4F7F;&#x7528;&#xFF0C;&#x5177;&#x4F53;&#x53EF;&#x67E5;&#x770B;MVP&#x7684;&#x76F8;&#x5173;&#x77E5;&#x8BC6;&#x3002;</p>
+<h3 id="&#x4EE3;&#x7801;&#x6CE8;&#x91CA;">&#x4EE3;&#x7801;&#x6CE8;&#x91CA;</h3><p>JavaDoc&#x4E2D;&#x660E;&#x786E;&#x63D0;&#x51FA;&#x5728;&#x5305;&#x3001;&#x7C7B;&#x3001;&#x63A5;&#x53E3;&#x3001;&#x65B9;&#x6CD5;&#x3001;&#x53D8;&#x91CF;&#x3001;&#x5E38;&#x91CF;&#x7B49;&#x4F4D;&#x7F6E;&#x8FDB;&#x884C;&#x6CE8;&#x89E3;&#xFF0C;&#x4EE5;&#x65B9;&#x4FBF;&#x901A;&#x8FC7;&#x5DE5;&#x5177;&#x751F;&#x6210;doc&#x6587;&#x4EF6;&#x3002;&#x56E0;&#x6B64;&#x53EA;&#x9700;&#x8981;&#x6240;&#x6709;&#x4EBA;&#x6309;&#x7167;javadoc&#x65B9;&#x5F0F;&#x7F16;&#x5199;&#x5373;&#x53EF;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x5355;&#x72EC;&#x5728;&#x5B9A;&#x4E49;&#x4E00;&#x5957;&#x65B9;&#x6CD5;&#x3002;</p>
+<h3 id="&#x6700;&#x540E;">&#x6700;&#x540E;</h3><p>&#x7F16;&#x7801;&#x7684;&#x4F18;&#x7F8E;&#x4E0D;&#x5728;&#x4E8E;&#x89C4;&#x77E9;&#x9650;&#x5236;&#xFF0C;&#x5728;&#x4E8E;&#x4E2A;&#x4EBA;&#x81EA;&#x89C9;&#x9075;&#x5B88;&#xFF0C;&#x4EE5;&#x9AD8;&#x6807;&#x51C6;&#x8981;&#x6C42;&#x81EA;&#x5DF1;&#xFF0C;&#x5FAA;&#x5E8F;&#x6E10;&#x8FDB;&#x5199;&#x51FA;&#x9AD8;&#x903C;&#x683C;&#x3001;&#x9605;&#x8BFB;&#x6027;&#x5F3A;&#x3001;&#x8D28;&#x91CF;&#x9AD8;&#x3001;&#x53EF;&#x8FFD;&#x8E2A;&#x3001;&#x53EF;&#x6269;&#x5C55;&#x7684;&#x4F18;&#x8D28;&#x4EE3;&#x7801;&#x3002;&#x4E2A;&#x4EBA;&#x80FD;&#x529B;&#x5C1A;&#x6B20;&#xFF0C;&#x671F;&#x671B;&#x603B;&#x7ED3;&#x8FD9;&#x4E9B;&#x5BF9;&#x5927;&#x5BB6;&#x6709;&#x7528;&#x3002;</p>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://www.baidu.com/2016/08/13/Android编程规范/" data-id="cirsxyjsk0011i7sembl2fwpl" class="article-share-link">分享到</a><div class="tags"><a href="/tags/Android/">Android</a></div><div class="post-nav"><a href="/2016/07/19/Android-Library/" class="next">Android Library</a></div><div data-thread-key="2016/08/13/Android编程规范/" data-title="Android 编程规范" data-url="http://www.baidu.com/2016/08/13/Android编程规范/" class="ds-share flat"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><a href="javascript:void(0);" class="ds-more">分享到：</a></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qzone" class="ds-qzone">QQ空间</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul><div class="ds-share-icons-more"></div></div></div><div data-thread-key="2016/08/13/Android编程规范/" data-title="Android 编程规范" data-url="http://www.baidu.com/2016/08/13/Android编程规范/" data-author-key="1" class="ds-thread"></div></div></div></div><div class="pure-u-1-4"><div id="sidebar"><div class="widget"><form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="search" name="word" maxlength="20" placeholder="Search"/><input type="hidden" name="si" value="http://www.baidu.com"/><input name="tn" type="hidden" value="bds"/><input name="cl" type="hidden" value="3"/><input name="ct" type="hidden" value="2097152"/><input name="s" type="hidden" value="on"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/自定义View/" style="font-size: 15px;">自定义View</a> <a href="/tags/git-gitlite-gitosis-gitweb/" style="font-size: 15px;">git gitlite gitosis gitweb</a> <a href="/tags/Parse/" style="font-size: 15px;">Parse</a> <a href="/tags/RxJava-框架/" style="font-size: 15px;">RxJava 框架</a> <a href="/tags/网络篇/" style="font-size: 15px;">网络篇</a> <a href="/tags/注解/" style="font-size: 15px;">注解</a> <a href="/tags/技术文章/" style="font-size: 15px;">技术文章</a> <a href="/tags/随记/" style="font-size: 15px;">随记</a> <a href="/tags/Android/" style="font-size: 15px;">Android</a> <a href="/tags/Android库/" style="font-size: 15px;">Android库</a> <a href="/tags/Android-Studio/" style="font-size: 15px;">Android Studio</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/08/13/Android编程规范/">Android 编程规范</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/19/Android-Library/">Android Library</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/23/RxJava原理和使用/">RXJava的个人理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/20/深入剖析自定义View之onLayout/">深入剖析自定义View之onLayout</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/13/深入剖析自定义View/">深入剖析自定义View</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/13/深入剖析自定义View之onMeasure/">深入剖析自定义View之onMeasure</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/20/Context的全面理解/">Context的全面理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/25/Maven服务器搭建/">Linux环境下Maven服务器搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/19/Simple XML解析/">Simple XML解析（极其方便的XML解析）</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/19/Retrofit2.0基本使用/">Retrofit2.0基本使用和个人封装</a></li></ul></div><div class="widget"><div class="comments-title"><i class="fa fa-comment-o"> 最近评论</i></div><div data-num-items="5" data-show-avatars="0" data-show-time="1" data-show-admin="0" data-excerpt-length="32" data-show-title="1" class="ds-recent-comments"></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://www.csdn.net" title="CSDN" target="_blank">CSDN</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">老柏.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.0"><script>var duoshuoQuery = {short_name:'true'};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
