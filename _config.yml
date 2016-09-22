@@ -8,8 +8,8 @@ menu:
   About: /about/index.html
 
 # Site
-title: Dr's Blog
-subtitle:
+title: 老柏
+subtitle: Dr.Kalen的博客
 description:
 author: Kalen
 language: zh-CN
@@ -42,11 +42,10 @@ widgets:
 # Links
 links:
   Hexo: http://hexo.io
-  CSDN: http://www.csdn.net
-
+  Jobbole: http://android.jobbole.com
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://www.36dr.net
+url: http://www.baidu.com
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -98,7 +97,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: yilia
+theme: maupassant
 
 # Markdown语法
 ## https://github.com/chjj/marked
@@ -111,6 +110,7 @@ markdown:
   smartLists: true
   smartypants: true
 
+post_asset_folder: true
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:

@@ -9,6 +9,8 @@ tags: Parse
 1. 标量（Scalar)，也就是单纯的字符串或则数字形式
 2. 序列（Sequence)，也就是若干数据按照一定顺序并列在一起又称“数组”
 3. 映射（Mapping)，也就是key/value键值对
+
+<!-- more -->
 Json的规格非常简单,此文章就不一一描述：
 ``` json
 "{"name":"kalen", "age":22}"
@@ -90,3 +92,6 @@ public class User {
 * setFieldNamingStrategy 设置字段序列和反序列时名称显示，也可以通过@Serializer代替
 * setPrettyPrinting 设置gson转换后的字符串为一个比较好看的字符串
 * setDateFormat 设置默认Date解析时对应的format格式
+
+---
+参考链接：http://www.jianshu.com/p/3108f1e44155

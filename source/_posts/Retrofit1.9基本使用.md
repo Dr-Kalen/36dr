@@ -1,4 +1,4 @@
-title: Retrofit基本使用和个人封装
+title: Retrofit1.9基本使用和个人封装
 date: 2015-10-31 11:37:26
 tags: 网络篇
 ---
@@ -7,7 +7,7 @@ tags: 网络篇
 对比目前用的算是顺手的网络框架Volley，Okhttp，Retrofit,通常优先选择Retrofit，若Retrofit无法满足开发，则选择Okhttp。前两种已经完全可以实现大部分的网络开发需要，而且开发中使用极其简约大方。
 我们详细讨论Retrofit的优点和缺点：<br>
 Retrofit由Square组织编写的网络框架，使用技术动态代理和反射，使用OO设计简约网络代码。目前最新版本是2.0版本，鉴于某些仍在使用1.x版本，因此我们对两个版本依依分析和使用。<br>
-
+<!--more-->
 ## Retrofit装备
 * 框架下载地址：https://github.com/square/retrofit
 * 官网使用说明文档：http://square.github.io/retrofit/#api-declaration
@@ -19,7 +19,7 @@ compile 'com.squareup.retrofit:retrofit:1.9.0'
 ```
 
 ## Retrofit2.0使用
-敬请期待10月3日更新文档
+[请阅读Retrofit2.0](/2016/01/19/Retrofit2.0基本使用[20160119]/)
 
 ## Retrofit1.9 使用
 Retrofit使用中最重要的几个类：RestAdapter, Interface，Convert,RequestInterceptor,CallbackRunnable。<br>
@@ -77,6 +77,14 @@ RestAdapter restAdapter = new RestAdapter.Builder()
 .build();
 
 ```
+
+自定义Client
+
+若不采用自带的Client，默认先考虑Okhttp，若没有配置则判断是否大于2.3版本，若大于则用HTTPclient，否在使用HttpUrlConnection.
+``` Android
+builder.setClient(new OkClient(OkHttpUtils.getInstance(context)));
+```
+自定义一个OkHttpClient然后设置相关属性（timeout时间，缓存，等）然后通过builder.setClient设置网络访问的client
 
 数据返回处理：<br>
 * 若是同步调用则直接返回数据，返回数据与请求属于同一线程，则不能直接更新UI因为不在UI主线程中。
@@ -184,3 +192,5 @@ NetworkRequest.getInstance().list(new Callback<BaseSequenceType<Product>>() {
         });
 ```
 封装之后的Demo下载地址：https://github.com/Dr-Kalen/RetrofitDemo
+## 资源链接
+1. [Retrofit 部分源码剖析](http://www.cnblogs.com/angeldevil/p/3757335.html)

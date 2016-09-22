@@ -1,10 +1,11 @@
-title: 注解(Annotations)使用和自定义
+title: 注解Annotations使用和自定义
 date: 2015-11-01 22:33:51
 tags: 注解
 ---
 ## 前言
 Android默认提供Annotation框架同时网络也冲刺着各种Android Annotation框架，诸如此类框架很多，但是用过之后使用都比较复杂，同时还有一些无法避免的bug。如在Android开发时经常会遇到获得界面中的View使用方法findViewById特别是在Adapter中需要对所有使用的组件变量赋值，每次调用findViewById就显得多余的开发，若采用注解则会方便开发，精简代码的结构和提示代码阅读性，当然由于Annotation是反射机制设置变量值，则在性能上会相对于普通方式差，在此硬件比拼的时代，此性能几乎可以忽略。
 
+<!--more-->
 ## 原理和自定义
 以前言中提到Android开发多次调用findViewById方法的困惑，我们通过自定义Annotation来解决此问题。如下：
 1. 定义注解类：
